@@ -11,7 +11,7 @@
         
   
   
-  <artifactId>rootModule</artifactId>
+  <artifactId>Lista4</artifactId>
         
   
   
@@ -39,6 +39,8 @@
           
     
     <module>common</module>
+          
+          <module>logic</module>
       
   </modules>
     
