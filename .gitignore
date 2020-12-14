@@ -1,2 +1,7 @@
 .settings
 .project
+logic/target/*
+common/target/*
+client/target/*
+server/target/*
+logic/.classpath
