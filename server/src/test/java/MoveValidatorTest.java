@@ -20,8 +20,8 @@ public class MoveValidatorTest {
     public void setUp() {
         BuilderChecker builderChecker = new ChineseBasicCheckerBuilder();
         board = factory.getBoard("2PlayerChineseCheckersBoard");
-        checkers = new Checker[4];
-        for(int  i = 0; i < 4; i++) {
+        checkers = new Checker[8];
+        for(int  i = 0; i < 8; i++) {
             checkers[i] = builderChecker.buildChecker();
         }
     }
@@ -71,14 +71,70 @@ public class MoveValidatorTest {
         board.getField(11, 13).putChecker(checkers[0]);
         board.getField(10, 14).putChecker(checkers[1]);
         // jump over one checker
-//        assertTrue(validator.validateMove("move 11,13 9,15", board));
+        assertTrue(validator.validateMove("move 11,13 9,15", board));
         // try to jump
-      //  assertFalse(validator.validateMove("move 11,13 6,18", board));
+        assertFalse(validator.validateMove("move 11,13 6,18", board));
         // jump over two
         board.getField(8, 16).putChecker(checkers[2]);
 
-      //  assertTrue(validator.validateMove("move 11,13 7,17", board));
+        assertTrue(validator.validateMove("move 11,13 7,17", board));
         assertFalse(validator.validateMove("move 11,13 6,18", board));
+
+        // check for polyline path
+        assertTrue(validator.validateMove("move 11,13 7,15", board));
+
+        // put another one
+        board.getField(6, 14).putChecker(checkers[3]);
+
+        // check polyline path again
+        assertTrue(validator.validateMove("move 11,13 5,13", board));
+        assertTrue(validator.validateMove("move 11,13 5,15", board));
+
+        assertFalse(validator.validateMove("move 11,13 6,18", board));
+
+        assertTrue(validator.validateMove("move 11,13 11,13", board));
+
+        resetBoard();
+    }
+
+    @Test
+    public void endlessLoopTest() {
+        board.getField(10,12 ).putChecker(checkers[0]);
+        board.getField(9, 11).putChecker(checkers[1]);;
+        board.getField(9, 13).putChecker(checkers[2]);
+        board.getField(7, 11).putChecker(checkers[3]);
+        board.getField(7, 13).putChecker(checkers[4]);
+
+        assertFalse(validator.validateMove("move 10,12 10,16", board));
+
+        resetBoard();
+    }
+
+    @Test
+    public void checkCircleOne() {
+        board.getField(10,10 ).putChecker(checkers[0]);
+        board.getField(9, 9).putChecker(checkers[1]);;
+        board.getField(7, 7).putChecker(checkers[2]);
+        board.getField(5, 7).putChecker(checkers[3]);
+        board.getField(5, 9).putChecker(checkers[4]);
+        board.getField(7, 11).putChecker(checkers[5]);
+
+        assertTrue(validator.validateMove("move 10,10 8,12", board));
+    }
+
+    @Test
+    public void checkCircleTwo() {
+        board.getField(10,10 ).putChecker(checkers[0]);
+        board.getField(9, 9).putChecker(checkers[1]);;
+        board.getField(8, 6).putChecker(checkers[2]);
+        board.getField(7, 5).putChecker(checkers[3]);
+        board.getField(5, 7).putChecker(checkers[4]);
+        board.getField(4, 10).putChecker(checkers[5]);
+        board.getField(5, 13).putChecker(checkers[6]);
+        board.getField(7, 13).putChecker(checkers[7]);
+
+        assertTrue(validator.validateMove("move 10,10 8,12", board));
+        assertFalse(validator.validateMove("move 10,10 9,13", board));
     }
 
     public void resetBoard() {

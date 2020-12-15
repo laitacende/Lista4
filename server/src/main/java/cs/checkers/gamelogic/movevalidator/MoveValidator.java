@@ -9,13 +9,14 @@ import cs.checkers.gamelogic.move.Move;
 import cs.checkers.gamelogic.move.MoveJump;
 import cs.checkers.gamelogic.move.MoveOneSquare;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MoveValidator {
-    private Board board;
+    ArrayList<Field> visited = new ArrayList<>();
 
     public boolean validateMove(String command, Board board) { // command in format 'move x_1,y_1 x_2,y_2'
-        this.board = board;
+        visited.clear();
         String[] args = splitCommand(command, " "); // coordinates at 1, 2
         String[] coordinatesPrev = splitCommand(args[1], ",");
         String[] coordinatesNext = splitCommand(args[2], ",");
@@ -28,15 +29,17 @@ public class MoveValidator {
         Field nextField = board.getField(x2, y2);
         Checker checker = currentField.getChecker();
 
-        if (nextField instanceof UnavailableField || !(nextField.getChecker() == null)) {
+        if (nextField.equals(currentField)) {
+            return true;
+        } else if (!nextField.isAvailable() || !(nextField.getChecker() == null)) {
             return false;
         } else {
             List<Move> moves = checker.getMoveSet().getMoves();
             for (Move move: moves) {
-                if (move instanceof MoveOneSquare) {
+                if (move.getClass().equals(MoveOneSquare.class)) {
                     if(validateForMoveOneSquare(x1, y1, x2, y2))
                         return true;
-                } else if (move instanceof MoveJump) {
+                } else if (move.getClass().equals(MoveJump.class)) {
                      if (validateForMoveJump(x1, y1, x2, y2, x1, y1, board)) {
                          return true;
                      }
@@ -60,62 +63,37 @@ public class MoveValidator {
 
     private boolean validateForMoveJump(int x1, int y1, int x2, int y2, int tempx, int tempy, Board board) {
         Field[] fieldsAround = new Field[6]; // it the beginning tempx and tempy equal to x1, y1
-        System.out.println(tempx + "temprary first" + tempy);
-        if (!(tempx - 1  == x1 && tempy + 1 == y1)) {
-            fieldsAround[0] = board.getField(tempx - 1, tempy + 1);
-        } else {
-            fieldsAround[0] = null;
+        Integer[] valx = {-1, 0, 1, 1, 0, -1 };
+        Integer[] valy = {1, 2, 1, -1, -2, -1 };
+        for (int i = 0; i < 6; i++) {
+            if (!(tempx + valx[i] == x1 && tempy + valy[i] == y1)) {
+                fieldsAround[i] = board.getField(tempx + valx[i], tempy + valy[i]);
+            } else {
+                fieldsAround[i] = null;
+            }
         }
-        if (!(tempx == x1 && tempy + 2 == y1)) {
-            fieldsAround[1] = board.getField(tempx, tempy + 2);
-        } else {
-            fieldsAround[1] = null;
-        }
-        if (!(tempx + 1  == x1 && tempy + 1 == y1)) {
-            fieldsAround[2] = board.getField(tempx + 1, tempy + 1);
-        } else {
-            fieldsAround[2] = null;
-        }
-        if (!(tempx + 1  == x1 && tempy - 1 == y1)) {
-            fieldsAround[3] = board.getField(tempx + 1, tempy - 1);
-        } else {
-            fieldsAround[3] = null;
-        }
-        if (!(tempx == x1 && tempy - 2 == y1)) {
-            fieldsAround[4] = board.getField(tempx, tempy - 2);
-        } else {
-            fieldsAround[4] = null;
-        }
-        if (!(tempx - 1  == x1 && tempy - 1 == y1)) {
-            fieldsAround[5] = board.getField(tempx - 1, tempy - 1);
-        } else {
-            fieldsAround[5] = null;
-        }
-        System.out.println(tempx + ",temp" + tempy);
-        if (tempx == x2 && tempy == y2) {
-            return true;
-        }
+        visited.add(board.getField(x1, y1));
         for (int i = 0; i < 6; i++) {
             if (fieldsAround[i] != null && fieldsAround[i].getX() == x2 && fieldsAround[i].getY() == y2) {
                 return true;
             }
-                if (fieldsAround[i] != null && fieldsAround[i].getChecker() != null) { // the closest neighbour has checker, can preceed
-                    // System.out.println(fieldsAround[i].getX() + "," + fieldsAround[i].getY());
-                    return validateForMoveJump(x1, y1, x2, y2, fieldsAround[i].getX(), fieldsAround[i].getY(), board);
-                } else {
-                    int idx = checkNeighbourNeighbours(tempx, tempy, x2, y2, fieldsAround, board);
-                    System.out.println("check" + idx);
-                    if (idx != -1) {
-                        return validateForMoveJump(x1, y1, x2, y2, fieldsAround[idx].getX(), fieldsAround[idx].getY(), board);
-                    } else {
-                        return false;
-                    }
-                }
+            if (fieldsAround[i] != null && fieldsAround[i].getChecker() != null && !isVisited(fieldsAround[i], visited)) { // the closest neighbour has checker, can preceed
+                visited.add(fieldsAround[i]);
+                return validateForMoveJump(tempx, tempy, x2, y2, fieldsAround[i].getX(), fieldsAround[i].getY(), board);
             }
+
+        }
+        for (int i = 0; i < 6; i++) {
+                int idx = checkNeighbourNeighbours(tempx, tempy, x2, y2, fieldsAround, board, visited);
+                if (idx != -1 && !isVisited(fieldsAround[idx], visited)) {
+                    visited.add(fieldsAround[idx]);
+                    return validateForMoveJump(tempx, tempy, x2, y2, fieldsAround[idx].getX(), fieldsAround[idx].getY(), board);
+                }
+        }
         return false;
     }
 
-    public int checkNeighbourNeighbours(int oldRow, int oldCol, int destx, int desty, Field[] neighbours, Board board) {
+    public int checkNeighbourNeighbours(int oldRow, int oldCol, int destx, int desty, Field[] neighbours, Board board, List<Field> visited) {
         for (int i = 0; i < 6; i++) {
             if (neighbours[i] != null) {
                 int row = neighbours[i].getX();
@@ -126,14 +104,21 @@ public class MoveValidator {
                 // check if neighbours of this neighbour have checkers
                 for (int j = 0; j < 6; j++) {
                     temp = board.getField(row + valx[j], col + valy[j]);
-                    double distanceOld = Math.sqrt((oldRow - destx) * (oldRow - destx) + (oldCol - desty) * (oldCol - desty));
-                    double distanceNew = Math.sqrt((temp.getX() - destx) * (temp.getX() - destx) + (temp.getY() - desty) * (temp.getY() - desty));
-                    if (temp != null && temp.getChecker() != null && distanceOld > distanceNew) {
+                    if (temp != null && temp.getChecker() != null && !isVisited(temp, visited)) {
                         return i;
                     }
                 }
             }
         }
         return -1;
+    }
+
+    private boolean isVisited(Field field, List<Field> fields) {
+        for (Field toCheck : fields) {
+            if (toCheck.equals(field)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

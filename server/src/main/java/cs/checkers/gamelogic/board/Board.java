@@ -12,16 +12,13 @@ import java.util.List;
  */
 public class Board {
 
-    int rows;
-    int cols;
+    private int rows;
+    private int cols;
     /**
      * Single instance of class object.
      */
     private static Board instance = new Board();
 
-    /**
-     * Array of objects of class {@link Field boardGame.Field} which belong to this board.
-     */
     private Field[][] fields;
 
     /**
@@ -34,10 +31,6 @@ public class Board {
      */
     private Board() {}
 
-    /**
-     * Method to get single instance of this class.
-     * @return instance of boardGame.Board.boardGame.Board
-     */
     public static Board getInstance() {
         return instance;
     }

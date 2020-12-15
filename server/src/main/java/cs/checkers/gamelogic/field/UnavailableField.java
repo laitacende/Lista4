@@ -24,4 +24,9 @@ public class UnavailableField extends Field {
     public Checker getChecker() {
        return null;
     }
+
+    @Override
+    public boolean isAvailable() {
+        return false;
+    }
 }

@@ -7,4 +7,9 @@ public class PlainField extends Field {
     public void onEnter(Checker checker) {
         // do nothing
     }
+
+    @Override
+    public boolean isAvailable() {
+        return true;
+    }
 }

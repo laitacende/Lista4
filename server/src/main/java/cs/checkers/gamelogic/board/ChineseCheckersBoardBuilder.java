@@ -1,8 +1,6 @@
 package cs.checkers.gamelogic.board;
 
 public abstract class ChineseCheckersBoardBuilder extends BoardBuilder {
-    private final int rows = 17;
-    private final int cols = 25;
     private final int[] unavailable = {12, 11, 10, 9, 0, 1, 2, 3, 4, 3, 2, 1, 0, 9, 10, 11, 12};
 
     @Override

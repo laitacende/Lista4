@@ -34,4 +34,6 @@ public abstract class Field {
     public Checker getChecker() {
         return checker;
     }
+
+    public abstract boolean isAvailable();
 }
