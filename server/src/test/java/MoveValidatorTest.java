@@ -66,6 +66,21 @@ public class MoveValidatorTest {
         resetBoard();
     }
 
+    @Test
+    public void moveJumpTest() {
+        board.getField(11, 13).putChecker(checkers[0]);
+        board.getField(10, 14).putChecker(checkers[1]);
+        // jump over one checker
+//        assertTrue(validator.validateMove("move 11,13 9,15", board));
+        // try to jump
+      //  assertFalse(validator.validateMove("move 11,13 6,18", board));
+        // jump over two
+        board.getField(8, 16).putChecker(checkers[2]);
+
+      //  assertTrue(validator.validateMove("move 11,13 7,17", board));
+        assertFalse(validator.validateMove("move 11,13 6,18", board));
+    }
+
     public void resetBoard() {
         board = factory.getBoard("2PlayerChineseCheckersBoard");
     }

@@ -8,6 +8,7 @@ public abstract class ChineseCheckersBoardBuilder extends BoardBuilder {
     @Override
     public Board getBoard() {
         board.initializeFields(rows, cols);
+        board.setRowsAndCols(rows, cols);
         // set up basic fields - available and unavailable
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) { // set unavailable fields

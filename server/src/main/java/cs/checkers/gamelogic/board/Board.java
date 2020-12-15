@@ -11,6 +11,9 @@ import java.util.List;
  * Class that represents board.
  */
 public class Board {
+
+    int rows;
+    int cols;
     /**
      * Single instance of class object.
      */
@@ -63,10 +66,19 @@ public class Board {
     }
 
     public Field getField(int row, int col) {
-        return fields[row][col];
+
+        if(row < rows && col < cols) {
+            return fields[row][col];
+        }
+        return null;
     }
 
     public List<Corner> getCorners() {
         return corners;
+    }
+
+    public void setRowsAndCols(int rows, int cols) {
+        this.rows = rows;
+        this.cols = cols;
     }
 }
