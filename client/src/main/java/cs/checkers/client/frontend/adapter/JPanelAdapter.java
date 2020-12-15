@@ -3,7 +3,7 @@ package cs.checkers.client.frontend.adapter;
 import javax.swing.JPanel;
 
 /**
- * JPanelAdapter
+ * adapter for {@link JPanel}
  */
 public class JPanelAdapter extends JPanel {
 

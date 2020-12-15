@@ -4,7 +4,7 @@ import cs.checkers.client.board.AbstractVisualBoard;
 import cs.checkers.client.networkIO.ServerHandler;
 
 /**
- * GameRunner
+ * main Chinese Checkers game loop happens here
  */
 public class GameRunner {
   private AbstractVisualBoard board;

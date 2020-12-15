@@ -3,13 +3,14 @@ package cs.checkers.client.board.builder;
 import cs.checkers.client.board.VisualBoard;
 
 /**
- * TwoPlayerVisualBoardBuilder
+ * implements {@link VisualBoardBuilder} for a Chinese Checkers game of 2
+ * players
  */
 public class TwoPlayerVisualBoardBuilder extends VisualBoardBuilder {
 
-	@Override
-	protected void fillWithCheckers(VisualBoard boardToFill) {
-		// TODO Auto-generated method stub
-		
-	}
+  @Override
+  protected void fillWithCheckers(VisualBoard boardToFill) {
+    // TODO Auto-generated method stub
+
+  }
 }

@@ -7,7 +7,7 @@ import javax.swing.Icon;
 import javax.swing.JButton;
 
 /**
- * JButtonAdapter
+ * adapter for {@link JButton}
  */
 public class JButtonAdapter extends JButton {
 

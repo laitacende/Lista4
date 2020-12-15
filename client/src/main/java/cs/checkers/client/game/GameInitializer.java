@@ -5,7 +5,7 @@ import cs.checkers.client.board.VisualBoard;
 import cs.checkers.common.BoardTypes;
 
 /**
- * GameInitializer
+ * initializes a game of Chinese Checkers
  */
 public class GameInitializer {
   BoardTypes type;

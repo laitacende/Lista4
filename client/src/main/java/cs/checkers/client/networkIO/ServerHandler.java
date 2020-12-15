@@ -5,7 +5,7 @@ import java.net.Socket;
 import java.util.Scanner;
 
 /**
- * ServerHandler
+ * handles communication with server in a game of Chinese Checkers
  */
 public class ServerHandler {
   private Scanner serverOutput;

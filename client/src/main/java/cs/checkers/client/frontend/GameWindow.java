@@ -3,7 +3,7 @@ package cs.checkers.client.frontend;
 import javax.swing.JPanel;
 
 /**
- * GameWindow
+ * houses graphic for {@link cs.checkers.client.board.VisualBoard}
  */
 public class GameWindow extends JPanel {
 

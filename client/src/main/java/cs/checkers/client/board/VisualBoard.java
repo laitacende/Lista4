@@ -1,7 +1,8 @@
 package cs.checkers.client.board;
 
 /**
- * VisualBoard
+ * VisualBoard -- code representation of a Chinese Checkers board, consists of multiples
+   of {@link VisualField}, which determine the look of the board.
  */
 public class VisualBoard implements AbstractVisualBoard {
   private VisualField[][] fields;

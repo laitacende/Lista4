@@ -3,7 +3,8 @@ package cs.checkers.client.board;
 import javax.swing.Icon;
 
 /**
- * VisualChecker
+ * representation of a tabletop game checker, right now the only way to
+ * customize it's look is to set it's {@link Icon}
  */
 public class VisualChecker {
   private Icon icon;
