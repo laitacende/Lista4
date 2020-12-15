@@ -13,7 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MoveValidator {
-    ArrayList<Field> visited = new ArrayList<>();
+    private ArrayList<Field> visited = new ArrayList<>();
+    private final Integer[] valx = {-1, 0, 1, 1, 0, -1};
+    private final Integer[] valy = {1, 2, 1, -1, -2, -1};
 
     public boolean validateMove(String command, Board board) { // command in format 'move x_1,y_1 x_2,y_2'
         visited.clear();
@@ -63,8 +65,6 @@ public class MoveValidator {
 
     private boolean validateForMoveJump(int x1, int y1, int x2, int y2, int tempx, int tempy, Board board) {
         Field[] fieldsAround = new Field[6]; // it the beginning tempx and tempy equal to x1, y1
-        Integer[] valx = {-1, 0, 1, 1, 0, -1 };
-        Integer[] valy = {1, 2, 1, -1, -2, -1 };
         for (int i = 0; i < 6; i++) {
             if (!(tempx + valx[i] == x1 && tempy + valy[i] == y1)) {
                 fieldsAround[i] = board.getField(tempx + valx[i], tempy + valy[i]);
@@ -72,13 +72,16 @@ public class MoveValidator {
                 fieldsAround[i] = null;
             }
         }
+        //System.out.println("ogolnie" + tempx + "'" + tempy);
         visited.add(board.getField(x1, y1));
         for (int i = 0; i < 6; i++) {
             if (fieldsAround[i] != null && fieldsAround[i].getX() == x2 && fieldsAround[i].getY() == y2) {
                 return true;
             }
-            if (fieldsAround[i] != null && fieldsAround[i].getChecker() != null && !isVisited(fieldsAround[i], visited)) { // the closest neighbour has checker, can preceed
+            if (fieldsAround[i] != null && fieldsAround[i].getChecker() != null && !isVisited(fieldsAround[i], visited)
+                    && ifNeighboursAreEmpty(fieldsAround[i], board)) { // the closest neighbour has checker, can proceed
                 visited.add(fieldsAround[i]);
+               // System.out.println("w najblizszych");
                 return validateForMoveJump(tempx, tempy, x2, y2, fieldsAround[i].getX(), fieldsAround[i].getY(), board);
             }
 
@@ -86,6 +89,7 @@ public class MoveValidator {
         for (int i = 0; i < 6; i++) {
                 int idx = checkNeighbourNeighbours(tempx, tempy, x2, y2, fieldsAround, board, visited);
                 if (idx != -1 && !isVisited(fieldsAround[idx], visited)) {
+                   // System.out.println("w dalsych");
                     visited.add(fieldsAround[idx]);
                     return validateForMoveJump(tempx, tempy, x2, y2, fieldsAround[idx].getX(), fieldsAround[idx].getY(), board);
                 }
@@ -99,8 +103,6 @@ public class MoveValidator {
                 int row = neighbours[i].getX();
                 int col = neighbours[i].getY();
                 Field temp;
-                Integer[] valx = {-1, 0, 1, 1, 0, -1 };
-                Integer[] valy = {1, 2, 1, -1, -2, -1 };
                 // check if neighbours of this neighbour have checkers
                 for (int j = 0; j < 6; j++) {
                     temp = board.getField(row + valx[j], col + valy[j]);
@@ -111,6 +113,18 @@ public class MoveValidator {
             }
         }
         return -1;
+    }
+
+    private boolean ifNeighboursAreEmpty(Field field, Board board) {
+        for (int i = 0; i < 6; i++) {
+            // check if there exists neighbour without checkers
+            Field temp;
+            temp = board.getField(field.getX() + valx[i], field.getY() + valy[i]);
+            if (temp != null && temp.getChecker() == null && !isVisited(temp, visited)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean isVisited(Field field, List<Field> fields) {
