@@ -20,8 +20,8 @@ public class MoveValidatorTest {
     public void setUp() {
         BuilderChecker builderChecker = new ChineseBasicCheckerBuilder();
         board = factory.getBoard("2PlayerChineseCheckersBoard");
-        checkers = new Checker[8];
-        for(int  i = 0; i < 8; i++) {
+        checkers = new Checker[10];
+        for(int  i = 0; i < 10; i++) {
             checkers[i] = builderChecker.buildChecker();
         }
     }
@@ -135,6 +135,24 @@ public class MoveValidatorTest {
 
         assertTrue(validator.validateMove("move 10,10 8,12", board));
         assertFalse(validator.validateMove("move 10,10 9,13", board));
+
+        resetBoard();
+    }
+
+    @Test
+    public void blockedTest() {
+        board.getField(16, 12).putChecker(checkers[0]);
+        board.getField(15, 11).putChecker(checkers[1]);
+        board.getField(15, 13).putChecker(checkers[2]);
+        board.getField(14, 10).putChecker(checkers[3]);
+        board.getField(14, 12).putChecker(checkers[4]);
+        board.getField(14, 14).putChecker(checkers[5]);
+        board.getField(13, 9).putChecker(checkers[6]);
+        board.getField(13, 11).putChecker(checkers[7]);
+        board.getField(13, 13).putChecker(checkers[8]);
+        board.getField(13, 15).putChecker(checkers[9]);
+
+        assertFalse(validator.validateMove("move 16,12 12,10", board));
     }
 
     public void resetBoard() {
