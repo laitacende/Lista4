@@ -42,7 +42,9 @@ public class VisualField extends JButtonAdapter {
   }
 
   private void onEnter(VisualChecker checker) {
-    this.setIcon(checker.getIcon());
+    if (checker != null) {
+      this.setIcon(checker.getIcon());
+    }
   }
 
 }
