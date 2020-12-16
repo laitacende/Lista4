@@ -87,7 +87,7 @@ public class MoveValidator {
 
         }
         for (int i = 0; i < 6; i++) {
-                int idx = checkNeighbourNeighbours(tempx, tempy, x2, y2, fieldsAround, board, visited);
+                int idx = checkNeighbourNeighbours(fieldsAround, board, visited);
                 if (idx != -1 && !isVisited(fieldsAround[idx], visited)) {
                    // System.out.println("w dalsych");
                     visited.add(fieldsAround[idx]);
@@ -97,7 +97,7 @@ public class MoveValidator {
         return false;
     }
 
-    public int checkNeighbourNeighbours(int oldRow, int oldCol, int destx, int desty, Field[] neighbours, Board board, List<Field> visited) {
+    public int checkNeighbourNeighbours(Field[] neighbours, Board board, List<Field> visited) {
         for (int i = 0; i < 6; i++) {
             if (neighbours[i] != null) {
                 int row = neighbours[i].getX();
