@@ -41,7 +41,7 @@ public class VisualField extends JButtonAdapter {
      @return returns the {@link Icon} of the current {@link VisualChecker}
    */
   @Override
-  public Icon getIcon() {
+  public String getIcon() {
     if (checker != null) {
       return checker.getIcon();
     } else {
@@ -51,7 +51,9 @@ public class VisualField extends JButtonAdapter {
 
   private void onEnter(VisualChecker checker) {
     if (checker != null) {
-      this.setIcon(checker.getIcon());
+      this.setText(checker.getIcon());
+    } else {
+      this.setText("");
     }
   }
 
