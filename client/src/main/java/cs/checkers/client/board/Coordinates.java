@@ -24,6 +24,10 @@ public class Coordinates {
     return this.column;
   }
 
+  public String toString() {
+    return getRow().toString() + "," + getColumn().toString();
+  }
+
   public static ArrayList<Coordinates> getTrianglePoints(int xBeg, int yBeg, int height, int verticalDirection) {
     ArrayList<Coordinates> result = new ArrayList<Coordinates>();
     int xPoint = xBeg;
