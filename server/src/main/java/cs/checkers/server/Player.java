@@ -40,4 +40,13 @@ public class Player {
         }
         return numberOfCheckers == 0;
     }
+
+    public boolean hasChecker(Checker checker) {
+        for(Checker ownChecker: ownCheckers) {
+            if (checker.equals(ownChecker)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
