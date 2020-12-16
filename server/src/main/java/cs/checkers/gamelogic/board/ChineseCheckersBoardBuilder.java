@@ -1,8 +1,19 @@
 package cs.checkers.gamelogic.board;
 
+/**
+ * Builder for board to play chinese checkers.
+ * @see cs.checkers.gamelogic.board.Board
+ */
 public abstract class ChineseCheckersBoardBuilder extends BoardBuilder {
+    /**
+     * Array with number of unavailable fields in particular row.
+     */
     private final int[] unavailable = {12, 11, 10, 9, 0, 1, 2, 3, 4, 3, 2, 1, 0, 9, 10, 11, 12};
 
+    /**
+     * Method which built board - sets size and types of fields.
+     * @return built board
+     */
     @Override
     public Board getBoard() {
         board.initializeFields(rows, cols);

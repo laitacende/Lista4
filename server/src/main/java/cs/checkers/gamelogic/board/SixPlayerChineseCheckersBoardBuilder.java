@@ -2,7 +2,13 @@ package cs.checkers.gamelogic.board;
 
 import cs.checkers.gamelogic.field.PlainField;
 
+/**
+ * Concrete builder of {@link ChineseCheckersBoardBuilder ChineseCheckersBoardBuilder}.
+ */
 public class SixPlayerChineseCheckersBoardBuilder extends ChineseCheckersBoardBuilder {
+    /**
+     * Method which adds fields to corners and sets opposite corners.
+     */
     protected void addCorners() {
         Corner cornerPlayer1 = new Corner();
         Corner cornerPlayer4 = new Corner();
