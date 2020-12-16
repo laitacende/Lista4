@@ -14,6 +14,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class GameSimulationTest {
@@ -41,6 +42,7 @@ public class GameSimulationTest {
             checkers.add(builderChecker.buildChecker());
             player1Corner.getFields().get(i).putChecker(checkers.get(i));
         }
+        player1 = new Player(player1Corner);
 
         // put second player checkers in their corner
         int counter = 0;
@@ -48,6 +50,7 @@ public class GameSimulationTest {
             checkers.add(builderChecker.buildChecker());
             player2Corner.getFields().get(counter++).putChecker(checkers.get(i));
         }
+        player2 = new Player(player2Corner);
     }
 
     @Test
@@ -55,24 +58,39 @@ public class GameSimulationTest {
         // first player
         parser.parse("move 3,11 4,10");
         Field field = board.getField(parser.getX1(), parser.getY1());
+        Field next = board.getField(parser.getX2(), parser.getY2());
         Checker checker = field.getChecker();
         // check if player wants to move their checker
         if (player1 != null && player1.hasChecker(checker)
                 && validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board)) {
-            field.putChecker(checker);
-            field.onEnter(checker);
+            next.putChecker(checker);
+            next.onEnter(checker);
         }
-        assertTrue(field.getChecker().equals(checker));
+        assertTrue(next.getChecker().equals(checker));
 
         // now let the second player move
         parser.parse("move 13,15 12,14");
         field = board.getField(parser.getX1(), parser.getY1());
+        next = board.getField(parser.getX2(), parser.getY2());
         checker = field.getChecker();
         if (player2 != null && player2.hasChecker(checker)
                 && validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board)) {
-            field.putChecker(checker);
-            field.onEnter(checker);
+            next.putChecker(checker);
+            next.onEnter(checker);
         }
-        assertTrue(field.getChecker().equals(checker));
+        assertTrue(next.getChecker().equals(checker));
+
+        // check if player1 can move player2 checker
+        parser.parse("move 13,9 12,10");
+        field = board.getField(parser.getX1(), parser.getY1());
+        next = board.getField(parser.getX2(), parser.getY2());
+        checker = field.getChecker();
+        // check if player wants to move their checker
+        if (player1 != null && player1.hasChecker(checker)
+                && validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board)) {
+            next.putChecker(checker);
+            next.onEnter(checker);
+        }
+        assertTrue(next.getChecker() == null);
     }
 }
