@@ -14,8 +14,8 @@ import cs.checkers.common.BoardTypes;
  * {@link BoardTypes}
  */
 public abstract class VisualBoardBuilder {
-  public VisualBoard getBoard(BoardTypes type) {
-    VisualBoard boardToReturn = new VisualBoard();
+  public VisualBoard getBoard() {
+    VisualBoard boardToReturn = createBoard();
     fillWithCheckers(boardToReturn);
     return boardToReturn;
   }
@@ -37,20 +37,22 @@ public abstract class VisualBoardBuilder {
   protected VisualBoard createBoard() {
     VisualField fields[][] = new VisualField[rows][columns];
     // filling upper triangle with fields
+    System.out.println("Filling upper triangle");
     fillUpperTriangle(fields);
     // filling lower triangle with fields
+    System.out.println("Filling lower triangle");
     fillLowerTriangle(fields);
+    System.out.println("Triangles filled");
     VisualBoard board = new VisualBoard();
-    // filling specific fields with Checkers
-    fillWithCheckers(board);
-    return new VisualBoard();
+    board.setFields(fields);
+    return board;
   }
 
   private void fillUpperTriangle(VisualField fields[][]) {
     Integer incrementer = 1;
-    for (int row = 0; row < triangleHeight; row++) {
+    for (Integer row = 0; row < triangleHeight; row++) {
       int numberOfAvailableFieldsOnSide = (columns - incrementer) / 2;
-      int column = 0;
+      Integer column = 0;
 
       // left side unavailable fields (out of bounds)
       while (column < numberOfAvailableFieldsOnSide) {
@@ -60,13 +62,14 @@ public abstract class VisualBoardBuilder {
 
       // middle in bounds fields
       for (int counter = 0; counter < incrementer; counter++) {
-        makeInBoundsField(fields[row][column], row, column);
+        fields[row][column] = makeInBoundsField(row, column);
         column++;
       }
 
       // right side out of bounds
       while (column < fields[row].length) {
         fields[row][column] = new VisualField(unavailableColor);
+        column++;
       }
       incrementer += 2;
     }
@@ -74,8 +77,9 @@ public abstract class VisualBoardBuilder {
 
   private void fillLowerTriangle(VisualField fields[][]) {
     Integer incrementer = 1;
-    for (int row = rows - 1; row >= rows - triangleHeight; row--) {
+    for (Integer row = rows - 1; row >= rows - triangleHeight; row--) {
       int numberOfAvailableFieldsOnSide = (columns - incrementer) / 2;
+      System.out.println(numberOfAvailableFieldsOnSide);
       int column = 0;
 
       //right side
@@ -88,9 +92,7 @@ public abstract class VisualBoardBuilder {
 
       //middle
       for (int counter = 0; counter < incrementer; counter++) {
-        if (fields[row][column] == null) {
-          makeInBoundsField(fields[row][column], row, column);
-        }
+          fields[row][column] = makeInBoundsField(row, column);
         column++;
       }
 
@@ -99,23 +101,25 @@ public abstract class VisualBoardBuilder {
         if (fields[row][column] == null) {
           fields[row][column] = new VisualField(unavailableColor);
         }
+        column++;
       }
+      incrementer += 2;
     }
   }
 
 
-  private void makeInBoundsField(VisualField field, int row, int column) {
+  private VisualField makeInBoundsField(int row, int column) {
     if (row % 2 == 0) {
       if (column % 2 == 0) {
-        field = new VisualField(availableColor);
+        return new VisualField(availableColor);
       } else {
-        field = new VisualField(unavailableColor);
+        return new VisualField(unavailableColor);
       }
     } else {
       if (column % 2 == 0) {
-        field = new VisualField(unavailableColor);
+        return new VisualField(unavailableColor);
       } else {
-        field = new VisualField(availableColor);
+        return new VisualField(availableColor);
       }
     }
   }
