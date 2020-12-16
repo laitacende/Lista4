@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Corner {
     private Corner oppositeCorner;
-    private ArrayList<Field> fields = new ArrayList<>();
+    private List<Field> fields = new ArrayList<>();
 
     public void setOppositeCorner(Corner oppositeCorner) {
         this.oppositeCorner = oppositeCorner;

@@ -1,5 +1,6 @@
 package cs.checkers.server;
 
+import cs.checkers.gamelogic.board.Board;
 import cs.checkers.gamelogic.board.Corner;
 import cs.checkers.gamelogic.checker.Checker;
 import cs.checkers.gamelogic.field.Field;
@@ -26,6 +27,17 @@ public class Player {
     }
 
     public boolean checkIfFinished() {
-        
+        Corner opposite = corner.getOppositeCorner();
+        List<Field> oppositeFields = opposite.getFields();
+        int numberOfCheckers = ownCheckers.size();
+        // check if all of the player's checkers are in the opposite corner
+        for (Field field: oppositeFields) {
+            for (Checker checker: ownCheckers) {
+                if (field.getChecker() != null && field.getChecker().equals(checker)) {
+                    numberOfCheckers--;
+                }
+            }
+        }
+        return numberOfCheckers == 0;
     }
 }

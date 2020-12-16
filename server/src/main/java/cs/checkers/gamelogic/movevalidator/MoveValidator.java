@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MoveValidator {
-    private ArrayList<Field> visited = new ArrayList<>();
+    private List<Field> visited = new ArrayList<>();
     private final Integer[] valx = {-1, 0, 1, 1, 0, -1};
     private final Integer[] valy = {1, 2, 1, -1, -2, -1};
 
@@ -87,7 +87,7 @@ public class MoveValidator {
 
         }
         for (int i = 0; i < 6; i++) {
-                int idx = checkNeighbourNeighbours(fieldsAround, board, visited);
+                int idx = checkNeighbourNeighbours(fieldsAround, board);
                 if (idx != -1 && !isVisited(fieldsAround[idx], visited)) {
                    // System.out.println("w dalsych");
                     visited.add(fieldsAround[idx]);
@@ -97,7 +97,7 @@ public class MoveValidator {
         return false;
     }
 
-    public int checkNeighbourNeighbours(Field[] neighbours, Board board, List<Field> visited) {
+    private int checkNeighbourNeighbours(Field[] neighbours, Board board) {
         for (int i = 0; i < 6; i++) {
             if (neighbours[i] != null) {
                 int row = neighbours[i].getX();
