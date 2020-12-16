@@ -1,5 +1,7 @@
 package cs.checkers.client.board;
 
+import java.awt.Color;
+
 import javax.swing.Icon;
 
 import cs.checkers.client.adapter.JButtonAdapter;
@@ -11,6 +13,12 @@ import cs.checkers.client.adapter.JButtonAdapter;
 public class VisualField extends JButtonAdapter {
   private static final long serialVersionUID = -2724961121194281328L;
   private VisualChecker checker;
+
+  public VisualField(Color backgroundColor) {
+    super();
+    this.setBackground(backgroundColor);
+  }
+
 
   /**
    * @return returns the current {@link VisualChecker} on this field
