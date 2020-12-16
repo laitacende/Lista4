@@ -17,7 +17,6 @@ import java.util.List;
  * Class which validates moves of checkers.
  */
 public class MoveValidator {
-   private CommandParser parser = new CommandParser();
     /**
      * List of visited fields.
      */
@@ -69,11 +68,14 @@ public class MoveValidator {
         return false;
     }
 
-    private String[] splitCommand(String command, String separator) {
-        String[] result = command.split(separator);
-        return result;
-    }
-
+    /**
+     * Method which validates move for 'move one square'.
+     * @param x1 current field row
+     * @param y1 current field column
+     * @param x2 next field row
+     * @param y2 next field column
+     * @return true if move is possible, otherwise false
+     */
     private boolean validateForMoveOneSquare(int x1, int y1, int x2, int y2) {
         if ((Math.abs(x1 - x2) == 1 && Math.abs(y1 - y2) == 1) || (Math.abs(y1 - y2) == 2 && x1 - x2 == 0)) {
             return true;
@@ -81,6 +83,17 @@ public class MoveValidator {
         return false;
     }
 
+    /**
+     * Method which validates move for 'move jump'.
+     * @param x1 current field row
+     * @param y1 current field column
+     * @param x2 next field row
+     * @param y2 next field column
+     * @param tempx temporary field row
+     * @param tempy temporary field column
+     * @param board up-to-date board
+     * @return true if move is valid, otherwise false
+     */
     private boolean validateForMoveJump(int x1, int y1, int x2, int y2, int tempx, int tempy, Board board) {
         Field[] fieldsAround = new Field[6]; // it the beginning tempx and tempy equal to x1, y1
         for (int i = 0; i < 6; i++) {
@@ -90,7 +103,6 @@ public class MoveValidator {
                 fieldsAround[i] = null;
             }
         }
-        //System.out.println("ogolnie" + tempx + "'" + tempy);
         visited.add(board.getField(x1, y1));
         for (int i = 0; i < 6; i++) {
             if (fieldsAround[i] != null && fieldsAround[i].getX() == x2 && fieldsAround[i].getY() == y2) {
@@ -99,7 +111,6 @@ public class MoveValidator {
             if (fieldsAround[i] != null && fieldsAround[i].getChecker() != null && !isVisited(fieldsAround[i], visited)
                     && ifNeighboursAreEmpty(fieldsAround[i], board)) { // the closest neighbour has checker, can proceed
                 visited.add(fieldsAround[i]);
-               // System.out.println("w najblizszych");
                 return validateForMoveJump(tempx, tempy, x2, y2, fieldsAround[i].getX(), fieldsAround[i].getY(), board);
             }
 
@@ -107,7 +118,6 @@ public class MoveValidator {
         for (int i = 0; i < 6; i++) {
                 int idx = checkNeighbourNeighbours(fieldsAround, board);
                 if (idx != -1 && !isVisited(fieldsAround[idx], visited)) {
-                   // System.out.println("w dalsych");
                     visited.add(fieldsAround[idx]);
                     return validateForMoveJump(tempx, tempy, x2, y2, fieldsAround[idx].getX(), fieldsAround[idx].getY(), board);
                 }
@@ -115,6 +125,12 @@ public class MoveValidator {
         return false;
     }
 
+    /**
+     * Method to check paths with neighbour's neighbours.
+     * @param neighbours neighbours of neighbour
+     * @param board up-to-date board
+     * @return index of neighbour which lead to right path
+     */
     private int checkNeighbourNeighbours(Field[] neighbours, Board board) {
         for (int i = 0; i < 6; i++) {
             if (neighbours[i] != null) {
@@ -133,6 +149,12 @@ public class MoveValidator {
         return -1;
     }
 
+    /**
+     * Method which checks if neighbours of field are empty.
+     * @param field field which neighbours method checks
+     * @param board up-to-date board
+     * @return true if at least one neighbour is empty, if all have checkers method return false
+     */
     private boolean ifNeighboursAreEmpty(Field field, Board board) {
         for (int i = 0; i < 6; i++) {
             // check if there exists neighbour without checkers
@@ -145,6 +167,12 @@ public class MoveValidator {
         return false;
     }
 
+    /**
+     * Method which checks if field was visited.
+     * @param field field to check
+     * @param fields list of fields which were visited
+     * @return true if field was visited, false if it wasn't
+     */
     private boolean isVisited(Field field, List<Field> fields) {
         for (Field toCheck : fields) {
             if (toCheck.equals(field)) {
