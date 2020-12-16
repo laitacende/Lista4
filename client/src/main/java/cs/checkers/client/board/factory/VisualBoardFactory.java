@@ -1,6 +1,11 @@
 package cs.checkers.client.board.factory;
 
 import cs.checkers.client.board.VisualBoard;
+import cs.checkers.client.board.builder.FourPlayerVisualBoardBuilder;
+import cs.checkers.client.board.builder.SixPlayerVisualBoardBuilder;
+import cs.checkers.client.board.builder.ThreePlayerVisualBoardBuilder;
+import cs.checkers.client.board.builder.TwoPlayerVisualBoardBuilder;
+import cs.checkers.client.board.builder.VisualBoardBuilder;
 import cs.checkers.common.BoardTypes;
 
 /**
@@ -10,11 +15,27 @@ import cs.checkers.common.BoardTypes;
  */
 public class VisualBoardFactory {
 
-  // TODO: implement function
   /**
-     @param type the type that the resulting board is supposed to be
+   * @param type the type that the resulting board is supposed to be
    */
-  public VisualBoard getBoard(BoardTypes type) {
-    return new VisualBoard();
+  public static VisualBoard getBoard(BoardTypes type) {
+    VisualBoardBuilder builder;
+    switch (type) {
+      case TwoPlayerChineseCheckers:
+        builder = new TwoPlayerVisualBoardBuilder();
+        break;
+      case FourPlayerChineseCheckers:
+        builder = new FourPlayerVisualBoardBuilder();
+        break;
+      case SixPlayerChineseCheckers:
+        builder = new SixPlayerVisualBoardBuilder();
+        break;
+      case ThreePlayerChineseCheckers:
+        builder = new ThreePlayerVisualBoardBuilder();
+        break;
+      default:
+        return null;
+    }
+    return builder.getBoard();
   }
 }
