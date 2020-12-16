@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Disabled;
  * ThreePlayerVisualBoardBuilderTest
  */
 public class ThreePlayerVisualBoardBuilderTest {
-
+  @Disabled
   @Test
   public void testPrintBoard() {
     ThreePlayerVisualBoardBuilder builder = new ThreePlayerVisualBoardBuilder();

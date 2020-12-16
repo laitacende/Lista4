@@ -14,9 +14,9 @@ import org.junit.jupiter.api.Disabled;
  * TwoPlayerVisualBoardBuilderTest
  */
 public class TwoPlayerVisualBoardBuilderTest {
+  @Disabled
   @Test
   public void testPrintBoard() {
-    System.out.println("Entering test");
     TwoPlayerVisualBoardBuilder builder = new TwoPlayerVisualBoardBuilder();
     VisualBoard board = builder.getBoard();
     JPanelAdapter panel = new JPanelAdapter();
@@ -33,12 +33,8 @@ public class TwoPlayerVisualBoardBuilderTest {
     frame.pack();
     frame.setVisible(true);
     try {
-      //Thread.sleep(3000000);
+      Thread.sleep(3000000);
     } catch (Exception e) {
-      
     }
-
-
-
   }
 }
