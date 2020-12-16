@@ -7,17 +7,17 @@ import javax.swing.Icon;
  * customize it's look is to set it's {@link Icon}
  */
 public class VisualChecker {
-  private Icon icon;
+  private String icon;
 
-  public VisualChecker(Icon icon) {
+  public VisualChecker(String icon) {
     this.icon = icon;
   }
 
-  public Icon getIcon() {
+  public String getIcon() {
     return icon;
   }
 
-  public void setIcon(Icon icon) {
+  public void setIcon(String icon) {
     this.icon = icon;
   }
 

@@ -1,8 +1,11 @@
 package cs.checkers.client.board.builder;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
+import cs.checkers.client.board.Coordinates;
 import cs.checkers.client.board.VisualBoard;
+import cs.checkers.client.board.VisualChecker;
 import cs.checkers.client.board.VisualField;
 import cs.checkers.common.BoardTypes;
 
@@ -37,12 +40,9 @@ public abstract class VisualBoardBuilder {
   protected VisualBoard createBoard() {
     VisualField fields[][] = new VisualField[rows][columns];
     // filling upper triangle with fields
-    System.out.println("Filling upper triangle");
     fillUpperTriangle(fields);
     // filling lower triangle with fields
-    System.out.println("Filling lower triangle");
     fillLowerTriangle(fields);
-    System.out.println("Triangles filled");
     VisualBoard board = new VisualBoard();
     board.setFields(fields);
     return board;
@@ -79,7 +79,6 @@ public abstract class VisualBoardBuilder {
     Integer incrementer = 1;
     for (Integer row = rows - 1; row >= rows - triangleHeight; row--) {
       int numberOfAvailableFieldsOnSide = (columns - incrementer) / 2;
-      System.out.println(numberOfAvailableFieldsOnSide);
       int column = 0;
 
       //right side
@@ -121,6 +120,29 @@ public abstract class VisualBoardBuilder {
       } else {
         return new VisualField(availableColor);
       }
+    }
+  }
+
+  protected void fillTriangleWithCheckers(Integer rootPosX, Integer rootPosY, Integer triangleHeight,
+      Integer triangleDirection, VisualField fields[][], String icon) {
+    ArrayList<Coordinates> triangle = Coordinates.getTrianglePoints(rootPosX, rootPosY, triangleHeight,
+        triangleDirection);
+    int toSkip = 0;
+    int amountOfPoints = 1;
+    int index = 0;
+    for (int row = 0; row < triangleHeight; row++) {
+      int skipped = 0;
+      for (int point = 0; point < amountOfPoints; point++) {
+        Coordinates checkerField = triangle.get(index);
+        fields[checkerField.getRow()][checkerField.getColumn()].setChecker(new VisualChecker(icon));
+        index++;
+        if (skipped < toSkip) {
+          index++;
+          skipped++;
+        }
+      }
+      toSkip++;
+      amountOfPoints += 1;
     }
   }
 }

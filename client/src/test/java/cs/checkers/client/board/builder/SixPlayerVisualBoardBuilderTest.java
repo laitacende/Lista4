@@ -2,25 +2,28 @@ package cs.checkers.client.board.builder;
 
 import org.junit.jupiter.api.Test;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
+import cs.checkers.client.board.Coordinates;
 import cs.checkers.client.board.VisualBoard;
 import cs.checkers.client.frontend.adapter.JPanelAdapter;
 
 import org.junit.jupiter.api.Disabled;
+
 /**
- * TwoPlayerVisualBoardBuilderTest
+ * SixPlayerVisualBoardBuilderTest
  */
-public class TwoPlayerVisualBoardBuilderTest {
+public class SixPlayerVisualBoardBuilderTest {
   @Disabled
   @Test
   public void testPrintBoard() {
-    TwoPlayerVisualBoardBuilder builder = new TwoPlayerVisualBoardBuilder();
+    SixPlayerVisualBoardBuilder builder = new SixPlayerVisualBoardBuilder();
     VisualBoard board = builder.getBoard();
     JPanelAdapter panel = new JPanelAdapter();
-    panel.setLayout(new GridLayout(17,25));
+    panel.setLayout(new GridLayout(17, 25));
     for (int i = 0; i < board.getFields().length; i++) {
       for (int j = 0; j < board.getFields()[i].length; j++) {
         panel.add(board.getFields()[i][j]);
@@ -35,6 +38,7 @@ public class TwoPlayerVisualBoardBuilderTest {
     try {
       Thread.sleep(3000000);
     } catch (Exception e) {
+
     }
   }
 }
