@@ -1,5 +1,10 @@
 package cs.checkers.gamelogic.checker;
 
+/**
+ * Manager for builders of checkers.
+ * @see cs.checkers.gamelogic.checker.BuilderChecker
+ * @see cs.checkers.gamelogic.checker.Checker
+ */
 public class ManagerChecker {
     private BuilderChecker builder;
 

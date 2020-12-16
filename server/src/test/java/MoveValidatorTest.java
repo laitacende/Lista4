@@ -4,6 +4,7 @@ import cs.checkers.gamelogic.checker.BuilderChecker;
 import cs.checkers.gamelogic.checker.Checker;
 import cs.checkers.gamelogic.checker.ChineseBasicCheckerBuilder;
 import cs.checkers.gamelogic.movevalidator.MoveValidator;
+import cs.checkers.parser.CommandParser;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,6 +16,7 @@ public class MoveValidatorTest {
     private MoveValidator validator = new MoveValidator();
     private Checker[] checkers;
     private BoardFactory factory = new BoardFactory();
+    private CommandParser parser = new CommandParser();
 
     @Before
     public void setUp() {
@@ -29,7 +31,8 @@ public class MoveValidatorTest {
     @Test
     public void moveToUnavailableField() {
         board.getField(0, 24).putChecker(checkers[0]);
-        assertFalse(validator.validateMove("move 0,24 0,23", board));
+        parser.parse("move 0,24 0,23");
+        assertFalse(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
 
         resetBoard();
     }
@@ -40,12 +43,18 @@ public class MoveValidatorTest {
         assertTrue(board.getField(7,11).getChecker() != null);
 
         // check every direction without any other checkers
-        assertTrue(validator.validateMove("move 7,11 7,9", board));
-        assertTrue(validator.validateMove("move 7,11 7,13", board));
-        assertTrue(validator.validateMove("move 7,11 6,10", board));
-        assertTrue(validator.validateMove("move 7,11 6,12", board));
-        assertTrue(validator.validateMove("move 7,11 8,10", board));
-        assertTrue(validator.validateMove("move 7,11 8,12", board));
+        parser.parse("move 7,11 7,9");
+        assertTrue(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
+        parser.parse("move 7,11 7,13");
+        assertTrue(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
+        parser.parse("move 7,11 6,10");
+        assertTrue(validator.validateMove( parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
+        parser.parse("move 7,11 6,12");
+        assertTrue(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
+        parser.parse("move 7,11 8,10");
+        assertTrue(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
+        parser.parse("move 7,11 8,12");
+        assertTrue(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
 
         // now place other checkers on some fields
         board.getField(7, 13).putChecker(checkers[1]);
@@ -56,12 +65,18 @@ public class MoveValidatorTest {
         assertTrue(board.getField(6,10).getChecker() != null);
 
        // perform the same moves
-        assertTrue(validator.validateMove("move 7,11 7,9", board));
-        assertFalse(validator.validateMove("move 7,11 7,13", board));
-        assertFalse(validator.validateMove("move 7,11 6,10", board));
-        assertTrue(validator.validateMove("move 7,11 6,12", board));
-        assertTrue(validator.validateMove("move 7,11 8,10", board));
-        assertFalse(validator.validateMove("move 7,11 8,12", board));
+        parser.parse("move 7,11 7,9");
+        assertTrue(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
+        parser.parse("move 7,11 7,13");
+        assertFalse(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
+        parser.parse("move 7,11 6,10");
+        assertFalse(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
+        parser.parse("move 7,11 6,12");
+        assertTrue(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
+        parser.parse("move 7,11 8,10");
+        assertTrue(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
+        parser.parse("move 7,11 8,12");
+        assertFalse(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
 
         resetBoard();
     }
@@ -70,29 +85,41 @@ public class MoveValidatorTest {
     public void moveJumpTest() {
         board.getField(11, 13).putChecker(checkers[0]);
         board.getField(10, 14).putChecker(checkers[1]);
+
         // jump over one checker
-        assertTrue(validator.validateMove("move 11,13 9,15", board));
+        parser.parse("move 11,13 9,15");
+        assertTrue(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
+
         // try to jump
-        assertFalse(validator.validateMove("move 11,13 6,18", board));
+        parser.parse("move 11,13 6,18");
+        assertFalse(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
+
         // jump over two
         board.getField(8, 16).putChecker(checkers[2]);
 
-        assertTrue(validator.validateMove("move 11,13 7,17", board));
-        assertFalse(validator.validateMove("move 11,13 6,18", board));
+        parser.parse("move 11,13 7,17");
+        assertTrue(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
+        parser.parse("move 11,13 6,18");
+        assertFalse(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
 
         // check for polyline path
-        assertTrue(validator.validateMove("move 11,13 7,15", board));
+        parser.parse("move 11,13 7,15");
+        assertTrue(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
 
         // put another one
         board.getField(6, 14).putChecker(checkers[3]);
 
         // check polyline path again
-        assertTrue(validator.validateMove("move 11,13 5,13", board));
-        assertTrue(validator.validateMove("move 11,13 5,15", board));
+        parser.parse("move 11,13 5,13");
+        assertTrue(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
+        parser.parse("move 11,13 5,15");
+        assertTrue(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
 
-        assertFalse(validator.validateMove("move 11,13 6,18", board));
+        parser.parse("move 11,13 6,18");
+        assertFalse(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
 
-        assertTrue(validator.validateMove("move 11,13 11,13", board));
+        parser.parse("move 11,13 11,13");
+        assertTrue(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
 
         resetBoard();
     }
@@ -105,10 +132,12 @@ public class MoveValidatorTest {
         board.getField(7, 11).putChecker(checkers[3]);
         board.getField(7, 13).putChecker(checkers[4]);
 
-        assertFalse(validator.validateMove("move 10,12 10,16", board));
+        parser.parse("move 10,12 10,16");
+        assertFalse(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
 
         resetBoard();
     }
+
 
     @Test
     public void checkCircleOne() {
@@ -119,7 +148,8 @@ public class MoveValidatorTest {
         board.getField(5, 9).putChecker(checkers[4]);
         board.getField(7, 11).putChecker(checkers[5]);
 
-        assertTrue(validator.validateMove("move 10,10 8,12", board));
+        parser.parse("move 10,10 8,12");
+        assertTrue(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
     }
 
     @Test
@@ -133,8 +163,10 @@ public class MoveValidatorTest {
         board.getField(5, 13).putChecker(checkers[6]);
         board.getField(7, 13).putChecker(checkers[7]);
 
-        assertTrue(validator.validateMove("move 10,10 8,12", board));
-        assertFalse(validator.validateMove("move 10,10 9,13", board));
+        parser.parse("move 10,10 8,12");
+        assertTrue(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
+        parser.parse("move 10,10 9,13");
+        assertFalse(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
 
         resetBoard();
     }
@@ -152,7 +184,8 @@ public class MoveValidatorTest {
         board.getField(13, 13).putChecker(checkers[8]);
         board.getField(13, 15).putChecker(checkers[9]);
 
-        assertFalse(validator.validateMove("move 16,12 12,10", board));
+        parser.parse("move 16,12 12,10");
+        assertFalse(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
     }
 
     public void resetBoard() {

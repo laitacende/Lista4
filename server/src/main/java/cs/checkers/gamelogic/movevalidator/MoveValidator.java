@@ -8,24 +8,42 @@ import cs.checkers.gamelogic.field.UnavailableField;
 import cs.checkers.gamelogic.move.Move;
 import cs.checkers.gamelogic.move.MoveJump;
 import cs.checkers.gamelogic.move.MoveOneSquare;
+import cs.checkers.parser.CommandParser;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class which validates moves of checkers.
+ */
 public class MoveValidator {
+   private CommandParser parser = new CommandParser();
+    /**
+     * List of visited fields.
+     */
     private List<Field> visited = new ArrayList<>();
+
+    /**
+     * Values to iterate through neighbours for x axis.
+     */
     private final Integer[] valx = {-1, 0, 1, 1, 0, -1};
+
+    /**
+     * Values to iterate through neighbours for y axis.
+     */
     private final Integer[] valy = {1, 2, 1, -1, -2, -1};
 
-    public boolean validateMove(String command, Board board) { // command in format 'move x_1,y_1 x_2,y_2'
+    /**
+     * Method which validates move specified in given command.
+     * @param x1 row of current field
+     * @param y1 column of current field
+     * @param x2 row of next field
+     * @param y2 column of next field
+     * @param board up-to-date board
+     * @return true if move is valid, false otherwise
+     */
+    public boolean validateMove(int x1, int y1, int x2, int y2, Board board) { // command in format 'move x_1,y_1 x_2,y_2'
         visited.clear();
-        String[] args = splitCommand(command, " "); // coordinates at 1, 2
-        String[] coordinatesPrev = splitCommand(args[1], ",");
-        String[] coordinatesNext = splitCommand(args[2], ",");
-        int x1 = Integer.parseInt(coordinatesPrev[0]);
-        int y1 = Integer.parseInt(coordinatesPrev[1]);
-        int x2 = Integer.parseInt(coordinatesNext[0]);
-        int y2 = Integer.parseInt(coordinatesNext[1]);
 
         Field currentField = board.getField(x1, y1);
         Field nextField = board.getField(x2, y2);
