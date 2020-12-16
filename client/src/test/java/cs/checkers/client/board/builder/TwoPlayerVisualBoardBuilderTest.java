@@ -33,7 +33,7 @@ public class TwoPlayerVisualBoardBuilderTest {
     frame.pack();
     frame.setVisible(true);
     try {
-      Thread.sleep(3000000);
+      //Thread.sleep(3000000);
     } catch (Exception e) {
       
     }
