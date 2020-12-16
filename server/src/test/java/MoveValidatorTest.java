@@ -8,6 +8,7 @@ import cs.checkers.parser.CommandParser;
 import org.junit.Before;
 import org.junit.Test;
 
+import static cs.checkers.common.BoardTypes.TwoPlayerChineseCheckers;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -21,7 +22,7 @@ public class MoveValidatorTest {
     @Before
     public void setUp() {
         BuilderChecker builderChecker = new ChineseBasicCheckerBuilder();
-        board = factory.getBoard("2PlayerChineseCheckersBoard");
+        board = factory.getBoard(TwoPlayerChineseCheckers);
         checkers = new Checker[10];
         for(int  i = 0; i < 10; i++) {
             checkers[i] = builderChecker.buildChecker();
@@ -189,6 +190,6 @@ public class MoveValidatorTest {
     }
 
     public void resetBoard() {
-        board = factory.getBoard("2PlayerChineseCheckersBoard");
+        board = factory.getBoard(TwoPlayerChineseCheckers);
     }
 }

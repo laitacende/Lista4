@@ -1,5 +1,7 @@
 package cs.checkers.gamelogic.board;
 
+import cs.checkers.common.BoardTypes;
+
 /**
  * Director for {@link BoardBuilder BoardBuilder}.
  */
@@ -14,17 +16,17 @@ public class BoardFactory {
      * @param type type of board to be created
      * @return built board
      */
-    public Board getBoard(String type) {
-        if (type.equals("2PlayerChineseCheckersBoard")) {
+    public Board getBoard(BoardTypes type) {
+        if (type.equals(BoardTypes.TwoPlayerChineseCheckers)) {
             builder = new TwoPlayerChineseCheckersBoardBuilder();
             return builder.getBoard();
-        } else if (type.equals("3PlayerChineseCheckersBoard")) {
+        } else if (type.equals(BoardTypes.ThreePlayerChineseCheckers)) {
             builder = new ThreePlayerChineseCheckersBoardBuilder();
             return builder.getBoard();
-        } else if (type.equals("4PlayerChineseCheckersBoard")) {
+        } else if (type.equals(BoardTypes.FourPlayerChineseCheckers)) {
             builder = new FourPlayerChineseCheckersBoardBuilder();
             return builder.getBoard();
-        } else if (type.equals("6PlayerChineseCheckersBoard")) {
+        } else if (type.equals(BoardTypes.SixPlayerChineseCheckers)) {
             builder = new SixPlayerChineseCheckersBoardBuilder();
             return builder.getBoard();
         }

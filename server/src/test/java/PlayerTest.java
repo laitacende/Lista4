@@ -12,6 +12,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static cs.checkers.common.BoardTypes.TwoPlayerChineseCheckers;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -26,7 +27,7 @@ public class PlayerTest {
     public void setUp() {
         BoardFactory factory = new BoardFactory();
         BuilderChecker builderChecker = new ChineseBasicCheckerBuilder();
-        board = factory.getBoard("2PlayerChineseCheckersBoard");
+        board = factory.getBoard(TwoPlayerChineseCheckers);
         corners = board.getCorners();
         fieldsInCorner = corners.get(0).getFields();
 

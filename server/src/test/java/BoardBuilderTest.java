@@ -3,6 +3,8 @@ import cs.checkers.gamelogic.board.BoardFactory;
 import cs.checkers.gamelogic.field.PlainField;
 import cs.checkers.gamelogic.field.UnavailableField;
 import org.junit.Test;
+
+import static cs.checkers.common.BoardTypes.*;
 import static org.junit.Assert.*;
 
 
@@ -12,7 +14,7 @@ public class BoardBuilderTest {
 
     @Test
     public void TwoPlayersChineseCheckersBoardBuilder() {
-        board = factory.getBoard("2PlayerChineseCheckersBoard");
+        board = factory.getBoard( TwoPlayerChineseCheckers);
 
         // check if board was correctly built
         assertTrue(board.getField(3,9) instanceof PlainField);
@@ -40,7 +42,7 @@ public class BoardBuilderTest {
 
     @Test
     public void ThreePlayersChineseCheckersBoardBuilder() {
-        board = factory.getBoard("3PlayerChineseCheckersBoard");
+        board = factory.getBoard(ThreePlayerChineseCheckers);
 
         // check if board was correctly built
         assertTrue(board.getField(3,9) instanceof PlainField);
@@ -54,7 +56,7 @@ public class BoardBuilderTest {
 
     @Test
     public void FourPlayersChineseCheckersBoardBuilder() {
-        board = factory.getBoard("4PlayerChineseCheckersBoard");
+        board = factory.getBoard(FourPlayerChineseCheckers);
 
         // check if board was correctly built
         assertTrue(board.getField(3,9) instanceof PlainField);
@@ -68,7 +70,7 @@ public class BoardBuilderTest {
 
     @Test
     public void SixPlayersChineseCheckersBoardBuilder() {
-        board = factory.getBoard("6PlayerChineseCheckersBoard");
+        board = factory.getBoard(SixPlayerChineseCheckers);
 
         // check if board was correctly built
         assertTrue(board.getField(3,9) instanceof PlainField);
@@ -78,10 +80,5 @@ public class BoardBuilderTest {
         assertTrue(board.getField(0,0) instanceof UnavailableField);
         assertTrue(board.getField(5,14) instanceof UnavailableField);
         assertTrue(board.getField(14,19) instanceof UnavailableField);
-    }
-
-    @Test
-    public void nullBoard() {
-        assertEquals(null, factory.getBoard(""));
     }
 }

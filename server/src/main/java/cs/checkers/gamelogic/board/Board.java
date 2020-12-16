@@ -90,7 +90,6 @@ public class Board {
      * @return field or null if row, col are wrong sizes
      */
     public Field getField(int row, int col) {
-
         if(row < rows && col < cols) {
             return fields[row][col];
         }

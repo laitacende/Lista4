@@ -14,6 +14,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static cs.checkers.common.BoardTypes.TwoPlayerChineseCheckers;
 import static org.junit.Assert.assertTrue;
 
 public class GameSimulationTest {
@@ -29,7 +30,7 @@ public class GameSimulationTest {
         // create a board for two players
         BoardFactory factory = new BoardFactory();
         BuilderChecker builderChecker = new ChineseBasicCheckerBuilder();
-        board = factory.getBoard("2PlayerChineseCheckersBoard");
+        board = factory.getBoard( TwoPlayerChineseCheckers);
 
         List<Corner> corners = board.getCorners();
         Corner player1Corner = corners.get(0);
