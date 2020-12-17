@@ -28,7 +28,8 @@ public class CommandParser {
      * Method which parses command.
      * @param command command to parse
      */
-    public void parse(String command) {
+    public boolean parse(String command) {
+      try {
         String[] args = splitCommand(command, " "); // coordinates at 1, 2
         String[] coordinatesPrev = splitCommand(args[1], ",");
         String[] coordinatesNext = splitCommand(args[2], ",");
@@ -36,6 +37,10 @@ public class CommandParser {
         y1 = Integer.parseInt(coordinatesPrev[1]);
         x2 = Integer.parseInt(coordinatesNext[0]);
         y2 = Integer.parseInt(coordinatesNext[1]);
+      } catch (Exception e) {
+        return false;
+      }
+      return true;
     }
 
     /**

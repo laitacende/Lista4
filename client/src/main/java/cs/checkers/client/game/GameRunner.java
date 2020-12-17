@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
 
 import cs.checkers.client.board.AbstractVisualBoard;
 import cs.checkers.client.networkIO.ServerHandler;
@@ -38,6 +39,7 @@ public class GameRunner {
       GameInitializer initializer = new GameInitializer(BoardTypes.valueOf(type), userSocket.getOutputStream());
       board = initializer.getBoard();
       initializer.initializeGraphic();
+      handler.sendCommand("OK");
       initialized = true;
       return true;
     } catch (IOException e) {
@@ -53,11 +55,13 @@ public class GameRunner {
     if (!initialized) {
       return;
     }
-    processCommand(handler.getResponse());
     while (keepRunning) {
-      String userMove = userInput.nextLine();
-      handler.sendCommand(userMove);
-      processCommand(handler.getResponse(), userMove);
+      try {
+        JOptionPane.showMessageDialog(null, processCommand(handler.getResponse()));
+      } catch (Exception er) {
+        JOptionPane.showMessageDialog(null, "Server disconnected, game exited");
+        keepRunning = false;
+      }
     }
 
     try {
@@ -67,9 +71,12 @@ public class GameRunner {
     }
   }
 
-  private void processCommand(String command) {
+  private String processCommand(String command) {
+
+    return "";
   }
 
-  private void processCommand(String command, String userMove) {
+  private String processCommand(String command, String userMove) {
+    return "";
   }
 }
