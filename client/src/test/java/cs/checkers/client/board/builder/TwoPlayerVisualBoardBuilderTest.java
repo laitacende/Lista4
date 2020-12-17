@@ -10,17 +10,17 @@ import cs.checkers.client.board.VisualBoard;
 import cs.checkers.client.frontend.adapter.JPanelAdapter;
 
 import org.junit.jupiter.api.Disabled;
+
 /**
  * TwoPlayerVisualBoardBuilderTest
  */
-public class TwoPlayerVisualBoardBuilderTest {
-  @Disabled
-  @Test
-  public void testPrintBoard() {
+public class TwoPlayerVisualBoardBuilderTest extends AbstractVisualBoardBuilderTest {
+  // manual test, put @Test above it and run a single method
+  public void testBoard() {
     TwoPlayerVisualBoardBuilder builder = new TwoPlayerVisualBoardBuilder();
     VisualBoard board = builder.getBoard();
     JPanelAdapter panel = new JPanelAdapter();
-    panel.setLayout(new GridLayout(17,25));
+    panel.setLayout(new GridLayout(17, 25));
     for (int i = 0; i < board.getFields().length; i++) {
       for (int j = 0; j < board.getFields()[i].length; j++) {
         panel.add(board.getFields()[i][j]);
@@ -36,5 +36,11 @@ public class TwoPlayerVisualBoardBuilderTest {
       Thread.sleep(3000000);
     } catch (Exception e) {
     }
+  }
+
+  @Override
+  protected VisualBoard createBoard() {
+    VisualBoardBuilder builder = new TwoPlayerVisualBoardBuilder();
+    return builder.getBoard();
   }
 }

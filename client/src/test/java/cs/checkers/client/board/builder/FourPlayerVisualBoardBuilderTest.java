@@ -2,12 +2,10 @@ package cs.checkers.client.board.builder;
 
 import org.junit.jupiter.api.Test;
 import java.awt.GridLayout;
-import java.util.ArrayList;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
-import cs.checkers.client.board.Coordinates;
 import cs.checkers.client.board.VisualBoard;
 import cs.checkers.client.frontend.adapter.JPanelAdapter;
 
@@ -16,10 +14,9 @@ import org.junit.jupiter.api.Disabled;
 /**
  * FourPlayerVisualBoardBuilderTest
  */
-public class FourPlayerVisualBoardBuilderTest {
-  @Disabled
-  @Test
-  public void testPrintBoard() {
+public class FourPlayerVisualBoardBuilderTest extends AbstractVisualBoardBuilderTest {
+  // manual test, put @Test above it and run a single method
+  public void testBoard() {
     FourPlayerVisualBoardBuilder builder = new FourPlayerVisualBoardBuilder();
     VisualBoard board = builder.getBoard();
     JPanelAdapter panel = new JPanelAdapter();
@@ -40,5 +37,11 @@ public class FourPlayerVisualBoardBuilderTest {
     } catch (Exception e) {
 
     }
+  }
+
+  @Override
+  protected VisualBoard createBoard() {
+    VisualBoardBuilder builder = new FourPlayerVisualBoardBuilder();
+    return builder.getBoard();
   }
 }
