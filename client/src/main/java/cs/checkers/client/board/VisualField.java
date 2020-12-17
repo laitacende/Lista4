@@ -40,8 +40,7 @@ public class VisualField extends JButtonAdapter {
   /**
      @return returns the {@link Icon} of the current {@link VisualChecker}
    */
-  @Override
-  public String getIcon() {
+  public String getIconString() {
     if (checker != null) {
       return checker.getIcon();
     } else {
