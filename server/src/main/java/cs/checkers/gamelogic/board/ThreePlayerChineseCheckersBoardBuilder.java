@@ -77,8 +77,8 @@ public class ThreePlayerChineseCheckersBoardBuilder extends ChineseCheckersBoard
         board.addCorner(cornerPlayer1);
         board.addCorner(cornerPlayer2);
         board.addCorner(cornerPlayer3);
-        board.addCorner(oppositeCornerPlayer1);
-        board.addCorner(oppositeCornerPlayer2);
-        board.addCorner(oppositeCornerPlayer3);
+       // board.addCorner(oppositeCornerPlayer1);
+       // board.addCorner(oppositeCornerPlayer2);
+       // board.addCorner(oppositeCornerPlayer3);
     }
 }
