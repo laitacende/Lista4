@@ -17,7 +17,7 @@ public class TwoPlayerChineseCheckersBoardBuilder extends ChineseCheckersBoardBu
         // 'upper' corner
         for (int i = 0; i < 4; i++) {
             for (int j = 9; j < 16; j++) {
-                if (board.getField(i, j) instanceof PlainField) { // plain field
+                if (board.getField(i, j).isAvailable()) { // plain field
                     cornerPlayer1.addField(board.getField(i, j));
                 }
             }
@@ -26,7 +26,7 @@ public class TwoPlayerChineseCheckersBoardBuilder extends ChineseCheckersBoardBu
         // 'lower' corner
         for (int i = 13; i < 17; i++) {
             for (int j = 9; j < 16; j++) {
-                if (board.getField(i, j) instanceof PlainField) { // plain field
+                if (board.getField(i, j).isAvailable()) { // plain field
                     cornerPlayer2.addField(board.getField(i, j));
                 }
             }

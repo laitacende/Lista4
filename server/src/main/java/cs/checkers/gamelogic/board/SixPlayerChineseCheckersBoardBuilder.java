@@ -15,7 +15,7 @@ public class SixPlayerChineseCheckersBoardBuilder extends ChineseCheckersBoardBu
 
         for (int i = 0; i < 4; i++) {
             for (int j = 9; j < 16; j++) {
-                if (board.getField(i, j) instanceof PlainField) { // plain field
+                if (board.getField(i, j).isAvailable()) { // plain field
                     cornerPlayer1.addField(board.getField(i, j));
                 }
             }
@@ -23,7 +23,7 @@ public class SixPlayerChineseCheckersBoardBuilder extends ChineseCheckersBoardBu
 
         for (int i = 13; i < 17; i++) {
             for (int j = 9; j < 16; j++) {
-                if (board.getField(i, j) instanceof PlainField) { // plain field
+                if (board.getField(i, j).isAvailable()) { // plain field
                     cornerPlayer4.addField(board.getField(i, j));
                 }
             }
@@ -37,7 +37,7 @@ public class SixPlayerChineseCheckersBoardBuilder extends ChineseCheckersBoardBu
 
         for (int i = 4; i < 8; i++) {
             for (int j = 18; j < 25; j++) {
-                if (board.getField(i, j) instanceof PlainField) { // plain field
+                if (board.getField(i, j).isAvailable()) { // plain field
                     cornerPlayer2.addField(board.getField(i, j));
                 }
             }
@@ -45,7 +45,7 @@ public class SixPlayerChineseCheckersBoardBuilder extends ChineseCheckersBoardBu
 
         for (int i = 9; i < 13; i++) {
             for (int j = 0; j < 7; j++) {
-                if (board.getField(i, j) instanceof PlainField) { // plain field
+                if (board.getField(i, j).isAvailable()) { // plain field
                     cornerPlayer5.addField(board.getField(i, j));
                 }
             }
@@ -58,7 +58,7 @@ public class SixPlayerChineseCheckersBoardBuilder extends ChineseCheckersBoardBu
 
         for (int i = 9; i < 13; i++) {
             for (int j = 18; j < 25; j++) {
-                if (board.getField(i, j) instanceof PlainField) { // plain field
+                if (board.getField(i, j).isAvailable()) { // plain field
                     cornerPlayer3.addField(board.getField(i, j));
                 }
             }
@@ -66,7 +66,7 @@ public class SixPlayerChineseCheckersBoardBuilder extends ChineseCheckersBoardBu
 
         for (int i = 4; i < 8; i++) {
             for (int j = 0; j < 7; j++) {
-                if (board.getField(i, j) instanceof PlainField) { // plain field
+                if (board.getField(i, j).isAvailable()) { // plain field
                     cornerPlayer6.addField(board.getField(i, j));
                 }
             }
