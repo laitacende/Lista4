@@ -1,5 +1,6 @@
 package cs.checkers.client.networkIO;
 
+import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Scanner;
@@ -10,20 +11,18 @@ import java.util.Scanner;
 public class ServerHandler {
   private Scanner serverOutput;
   private PrintStream clientOutput;
-  private Socket server;
 
-  public ServerHandler(Socket server) {
-    this.server = server;
+  public ServerHandler(Socket server) throws IOException {
+    clientOutput = new PrintStream(server.getOutputStream());
+    serverOutput = new Scanner(server.getInputStream());
   }
 
-  //TODO: Implement function
-  public Boolean sendCommand(String command) {
-    return true;
+  public void sendCommand(String command) {
+    clientOutput.println(command);
   }
 
-  //TODO: Implement function
   public String getResponse() {
-    return "";
+    return serverOutput.nextLine();
   }
 
 }
