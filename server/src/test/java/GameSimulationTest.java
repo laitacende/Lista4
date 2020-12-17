@@ -1,3 +1,4 @@
+import cs.checkers.common.CommandParser;
 import cs.checkers.gamelogic.board.Board;
 import cs.checkers.gamelogic.board.BoardFactory;
 import cs.checkers.gamelogic.board.Corner;
@@ -6,7 +7,6 @@ import cs.checkers.gamelogic.checker.Checker;
 import cs.checkers.gamelogic.checker.ChineseBasicCheckerBuilder;
 import cs.checkers.gamelogic.field.Field;
 import cs.checkers.gamelogic.movevalidator.MoveValidator;
-import cs.checkers.parser.CommandParser;
 import cs.checkers.server.Player;
 import org.junit.Before;
 import org.junit.Test;

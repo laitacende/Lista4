@@ -1,11 +1,13 @@
+import cs.checkers.common.CommandParser;
 import cs.checkers.gamelogic.board.Board;
 import cs.checkers.gamelogic.board.BoardFactory;
 import cs.checkers.gamelogic.checker.BuilderChecker;
 import cs.checkers.gamelogic.checker.Checker;
 import cs.checkers.gamelogic.checker.ChineseBasicCheckerBuilder;
 import cs.checkers.gamelogic.movevalidator.MoveValidator;
-import cs.checkers.parser.CommandParser;
+
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static cs.checkers.common.BoardTypes.TwoPlayerChineseCheckers;
