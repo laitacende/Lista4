@@ -1,6 +1,5 @@
 package cs.checkers.client.game;
 
-import java.io.OutputStream;
 import java.security.InvalidParameterException;
 
 import cs.checkers.client.board.AbstractVisualBoard;
@@ -15,12 +14,12 @@ import cs.checkers.common.BoardTypes;
  */
 public class GameInitializer {
   private VisualBoard board;
-  private OutputStream userOutput;
+  private Controls controls;
 
   public void initializeGraphic() {
-    Controls controls = new Controls(userOutput, board.getFields());
+    controls = new Controls(board.getFields());
     for (int row = 0; row < board.getFields().length; row++) {
-      for (int column = 0; row < board.getFields()[row].length; row++) {
+      for (int column = 0; column < board.getFields()[row].length; column++) {
         board.getFields()[row][column].addMouseListener(controls);
       }
     }
@@ -32,12 +31,15 @@ public class GameInitializer {
     return board;
   }
 
-  public GameInitializer(BoardTypes type, OutputStream userOutput) throws InvalidParameterException {
-    this.userOutput = userOutput;
+  public GameInitializer(BoardTypes type) throws InvalidParameterException {
     board = VisualBoardFactory.getBoard(type);
     if (board == null) {
       throw new InvalidParameterException();
     }
+  }
+
+  public Controls getControls() {
+    return controls;
   }
 
 }

@@ -7,8 +7,11 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 import cs.checkers.client.board.AbstractVisualBoard;
+import cs.checkers.client.board.Coordinates;
+import cs.checkers.client.frontend.Controls;
 import cs.checkers.client.networkIO.ServerHandler;
 import cs.checkers.common.BoardTypes;
+import cs.checkers.common.CommandParser;
 
 /**
  * main Chinese Checkers game loop happens here
@@ -16,10 +19,10 @@ import cs.checkers.common.BoardTypes;
 public class GameRunner {
   private AbstractVisualBoard board;
   private ServerHandler handler;
-  private Socket userSocket;
-  private Scanner userInput;
-  private boolean keepRunning;
+  private boolean keepRunning = true;
   private boolean initialized = false;
+  private String currentMove;
+  private Controls controls;
 
   /**
    * use this function to connect {@link GameRunner} to a server and launch the
@@ -30,21 +33,22 @@ public class GameRunner {
    * @return returns true if connection succeeded, returns false otherwise
    */
   public boolean initialize(String ip, Integer port) {
-    userSocket = new Socket();
     try {
-      userInput = new Scanner(userSocket.getInputStream());
       Socket serverSocket = new Socket(ip, port);
+      System.out.println("Connected to server");
       handler = new ServerHandler(serverSocket);
       String type = handler.getResponse();
-      GameInitializer initializer = new GameInitializer(BoardTypes.valueOf(type), userSocket.getOutputStream());
+      GameInitializer initializer = new GameInitializer(BoardTypes.valueOf(type));
       board = initializer.getBoard();
       initializer.initializeGraphic();
+      this.controls = initializer.getControls();
       handler.sendCommand("OK");
       initialized = true;
-      return true;
+      System.out.println("Initialization done");
     } catch (IOException e) {
       return false;
     }
+    return true;
   }
 
   /**
@@ -57,26 +61,47 @@ public class GameRunner {
     }
     while (keepRunning) {
       try {
-        JOptionPane.showMessageDialog(null, processCommand(handler.getResponse()));
+        System.out.println("entering processCommands");
+        processCommand(handler.getResponse());
       } catch (Exception er) {
         JOptionPane.showMessageDialog(null, "Server disconnected, game exited");
+        er.printStackTrace();
         keepRunning = false;
       }
     }
 
     try {
-      userSocket.close();
       handler.close();
     } catch (IOException e) {
     }
   }
 
-  private String processCommand(String command) {
-
-    return "";
+  private void processCommand(String command) {
+    System.out.println("got response from server: " + command);
+    CommandParser parser = new CommandParser();
+    switch (command) {
+      case "your_turn":
+        currentMove = createMove();
+        handler.sendCommand(currentMove);
+        break;
+      case "move_success":
+        parser.parse(currentMove);
+        board.move(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2());
+        break;
+      case "move_wrong":
+        JOptionPane.showMessageDialog(null, "Wrong move, try again");
+        break;
+      case "you_finished":
+        JOptionPane.showMessageDialog(null, "You finished");
+        break;
+    }
   }
 
-  private String processCommand(String command, String userMove) {
-    return "";
+  private String createMove() {
+    System.out.println("getting moves from fronted");
+    String move = controls.getNextMove();
+    System.out.println("moves gotten from frontend");
+    return move;
   }
+
 }
