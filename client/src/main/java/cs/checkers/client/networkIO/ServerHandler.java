@@ -11,10 +11,12 @@ import java.util.Scanner;
 public class ServerHandler {
   private Scanner serverOutput;
   private PrintStream clientOutput;
+  private Socket serverSocket;
 
   public ServerHandler(Socket server) throws IOException {
     clientOutput = new PrintStream(server.getOutputStream());
     serverOutput = new Scanner(server.getInputStream());
+    serverSocket = server;
   }
 
   public void sendCommand(String command) {
@@ -23,6 +25,10 @@ public class ServerHandler {
 
   public String getResponse() {
     return serverOutput.nextLine();
+  }
+
+  public void close() throws IOException {
+    serverSocket.close();
   }
 
 }
