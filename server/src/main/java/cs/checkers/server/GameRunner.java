@@ -7,7 +7,7 @@ import cs.checkers.common.BoardTypes;
 import cs.checkers.gamelogic.board.Board;
 import cs.checkers.gamelogic.board.BoardFactory;
 import cs.checkers.gamelogic.movevalidator.MoveValidator;
-import cs.checkers.parser.CommandParser;
+import cs.checkers.common.CommandParser;
 
 /**
  * GameRunner
@@ -24,7 +24,7 @@ public class GameRunner {
    * 
    * @param type type of Board the game is going to be played on
    */
-  GameRunner(BoardTypes type) {
+  public GameRunner(BoardTypes type) {
     this.type = type;
   }
 
@@ -36,30 +36,41 @@ public class GameRunner {
    */
   public boolean initialize(Integer port) {
     // getting board
+    System.out.println("Started to initialize");
     BoardFactory factory = new BoardFactory();
     this.board = factory.getBoard(type);
+    System.out.println("Board created");
     // getting players
     try {
       serverSocket = new ServerSocket(port);
+      System.out.println("Created ServerSocket on port " + port.toString());
       playerHandlers = new ArrayList<PlayerHandler>(type.getNumOfPlayers(type));
+      System.out.println(type.toString());
+      System.out.println(type.getNumOfPlayers(type));
       for (int player = 0; player < type.getNumOfPlayers(type); player++) {
         try {
-          playerHandlers.set(player, new PlayerHandler(serverSocket.accept()));
+          System.out.println("Waiting for player");
+          playerHandlers.add(new PlayerHandler(serverSocket.accept()));
           playerHandlers.get(player).sendCommand(type.toString());
-          if (playerHandlers.get(player).getResponse() != "OK") {
+          if (!playerHandlers.get(player).getResponse().equals("OK")) {
             player--;
           }
+          System.out.println("Player acquired");
         } catch (Exception e) {
+          e.printStackTrace();
           player--;
         }
       }
     } catch (Exception e) {
       return false;
     }
+    System.out.println("player handlers size: " + playerHandlers.size());
     // assigning players to corners
     for (int player = 0; player < playerHandlers.size(); player++) {
+      System.out.println("Assigning players to corners");
       playerHandlers.get(player).setPlayer(new Player(board.getCorners().get(player)));
     }
+    System.out.println("Initialization done");
     initialized = true;
     return true;
   }
@@ -72,10 +83,14 @@ public class GameRunner {
     if (!initialized) {
       return;
     }
+    System.out.println("Start running");
     Integer index = 0;
     MoveValidator validator = new MoveValidator();
     CommandParser parser = new CommandParser();
+    System.out.println("Made validators and parsers");
+    System.out.println("player handlers size: " + playerHandlers.size());
     while (playerHandlers.size() != 0) {
+      System.out.println("Loop for player handling");
       Boolean playerRemoved = false;
       PlayerHandler currentHandler = playerHandlers.get(index);
       // signal player that it's his turn
@@ -84,6 +99,7 @@ public class GameRunner {
       // player makes move
       while (true) {
         if (parser.parse(playerResponse)) {
+          System.out.println("Player move: " + playerResponse);
           if (validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board)) {
             board.move(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2());
             currentHandler.sendCommand("move_success");
