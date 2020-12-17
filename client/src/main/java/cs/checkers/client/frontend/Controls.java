@@ -2,6 +2,7 @@ package cs.checkers.client.frontend;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.OutputStream;
 import java.io.PrintStream;
 
 import cs.checkers.client.adapter.JButtonAdapter;
@@ -51,7 +52,12 @@ public class Controls implements MouseListener {
 		this.fields = fields;
 	}
 
-  private Coordinates findCoordinates(JButtonAdapter field) {
+  public Controls(OutputStream outputStream, JButtonAdapter[][] fields) {
+    this.userInput = new PrintStream(outputStream);
+    this.fields = fields;
+	}
+
+private Coordinates findCoordinates(JButtonAdapter field) {
     for (int row = 0; row < fields.length; row++) {
       for (int column = 0; column < fields[row].length; column++) {
         if (fields[row][column] == field) {
