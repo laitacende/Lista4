@@ -1,4 +1,4 @@
-package cs.checkers.parser;
+package cs.checkers.common;
 
 /**
  * Class which is responsible for parsing command.
