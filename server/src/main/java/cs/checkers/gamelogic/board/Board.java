@@ -113,4 +113,17 @@ public class Board {
         this.rows = rows;
         this.cols = cols;
     }
+
+  /**
+     Moves checker from field in row x1, column y1 to field in row x2, column y2
+   */
+  public void move(int x1, int y1, int x2, int y2) {
+    try {
+      if (fields[x1][y1].getChecker() != null) {
+        fields[x2][y2].putChecker(fields[x1][y1].getChecker());
+        fields[x1][y1].takeChecker();
+      }
+    } catch (Exception e) {
+    }
+  }
 }
