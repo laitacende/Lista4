@@ -1,5 +1,6 @@
 package cs.checkers.gamelogic.movevalidator;
 
+import cs.checkers.common.CommandParser;
 import cs.checkers.gamelogic.board.Board;
 import cs.checkers.gamelogic.checker.Checker;
 import cs.checkers.gamelogic.checker.ChineseBasicChecker;
@@ -8,7 +9,6 @@ import cs.checkers.gamelogic.field.UnavailableField;
 import cs.checkers.gamelogic.move.Move;
 import cs.checkers.gamelogic.move.MoveJump;
 import cs.checkers.gamelogic.move.MoveOneSquare;
-import cs.checkers.parser.CommandParser;
 
 import java.util.ArrayList;
 import java.util.List;
