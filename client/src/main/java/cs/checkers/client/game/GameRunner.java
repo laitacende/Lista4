@@ -90,6 +90,8 @@ public class GameRunner {
         break;
       case "move_wrong":
         JOptionPane.showMessageDialog(null, "Wrong move, try again");
+        currentMove = createMove();
+        handler.sendCommand(currentMove);
         break;
       case "you_finished":
         JOptionPane.showMessageDialog(null, "You finished");
