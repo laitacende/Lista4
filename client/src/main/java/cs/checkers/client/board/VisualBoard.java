@@ -11,7 +11,10 @@ public class VisualBoard implements AbstractVisualBoard {
 	@Override
 	public void move(Integer fromX, Integer fromY, Integer toX, Integer toY) {
     try {
-      fields[toX][toY].setChecker(fields[fromX][fromY].getChecker());
+      if (fields[fromX][fromY].getChecker() != null) {
+        fields[toX][toY].setChecker(fields[fromX][fromY].getChecker());
+        fields[fromX][fromY].setChecker(null);
+      }
     } catch (Exception e) {
     }
 	}
