@@ -72,9 +72,9 @@ public class GameRunner {
     for (int player = 0; player < playerHandlers.size(); player++) {
       System.out.println("Assigning players to corners");
       BuilderChecker builder = new ChineseBasicCheckerBuilder();
-      for (int i = 0; i < board.getCorners().get(player).getFields().size(); i++) {
-        board.getCorners().get(player).getFields().get(i).putChecker(builder.buildChecker());
-      }
+      //for (int i = 0; i < board.getCorners().get(player).getFields().size(); i++) {
+      //  board.getCorners().get(player).getFields().get(i).putChecker(builder.buildChecker());
+      //}
       playerHandlers.get(player).setPlayer(new Player(board.getCorners().get(player)));
     }
     System.out.println("Initialization done");
@@ -102,9 +102,9 @@ public class GameRunner {
       PlayerHandler currentHandler = playerHandlers.get(index);
       // signal player that it's his turn
       currentHandler.sendCommand("your_turn");
-      String playerResponse = currentHandler.getResponse();
       // player makes move
       while (true) {
+        String playerResponse = currentHandler.getResponse();
         if (parser.parse(playerResponse)) {
           System.out.println("Player move: " + playerResponse);
           if (validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board)) {
