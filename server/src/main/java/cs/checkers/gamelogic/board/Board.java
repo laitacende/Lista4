@@ -126,4 +126,20 @@ public class Board {
     } catch (Exception e) {
     }
   }
+
+    /**
+     * Rows getter.
+     * @return number of rows
+     */
+  public int getRows() {
+      return rows;
+  }
+
+    /**
+     * Columns getter.
+     * @return number of columns
+     */
+  public int getCols() {
+      return cols;
+  }
 }
