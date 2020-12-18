@@ -8,6 +8,9 @@ import cs.checkers.gamelogic.checker.ChineseBasicCheckerBuilder;
  * @see cs.checkers.gamelogic.board.Board
  */
 public abstract class ChineseCheckersBoardBuilder extends BoardBuilder {
+    /**
+     * Builder for checkers.
+     */
     protected BuilderChecker builderChecker = new ChineseBasicCheckerBuilder();
     /**
      * Array with number of unavailable fields in particular row.
