@@ -1,5 +1,6 @@
 package cs.checkers.gamelogic.board;
 
+import cs.checkers.gamelogic.checker.Checker;
 import cs.checkers.gamelogic.field.PlainField;
 
 /**
@@ -19,6 +20,8 @@ public class TwoPlayerChineseCheckersBoardBuilder extends ChineseCheckersBoardBu
             for (int j = 9; j < 16; j++) {
                 if (board.getField(i, j).isAvailable()) { // plain field
                     cornerPlayer1.addField(board.getField(i, j));
+                    // put checkers
+                    board.getField(i, j).putChecker(builderChecker.buildChecker());
                 }
             }
         }
@@ -28,6 +31,7 @@ public class TwoPlayerChineseCheckersBoardBuilder extends ChineseCheckersBoardBu
             for (int j = 9; j < 16; j++) {
                 if (board.getField(i, j).isAvailable()) { // plain field
                     cornerPlayer2.addField(board.getField(i, j));
+                    board.getField(i, j).putChecker(builderChecker.buildChecker());
                 }
             }
         }

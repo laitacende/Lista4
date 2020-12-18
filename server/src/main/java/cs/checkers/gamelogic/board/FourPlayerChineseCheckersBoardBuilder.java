@@ -17,6 +17,7 @@ public class FourPlayerChineseCheckersBoardBuilder extends ChineseCheckersBoardB
             for (int j = 18; j < 25; j++) {
                 if (board.getField(i, j).isAvailable()) { // plain field
                     cornerPlayer1.addField(board.getField(i, j));
+                    board.getField(i, j).putChecker(builderChecker.buildChecker());
                 }
             }
         }
@@ -25,6 +26,7 @@ public class FourPlayerChineseCheckersBoardBuilder extends ChineseCheckersBoardB
             for (int j = 0; j < 7; j++) {
                 if (board.getField(i, j).isAvailable()) { // plain field
                     cornerPlayer3.addField(board.getField(i, j));
+                    board.getField(i, j).putChecker(builderChecker.buildChecker());
                 }
             }
         }
@@ -39,6 +41,7 @@ public class FourPlayerChineseCheckersBoardBuilder extends ChineseCheckersBoardB
             for (int j = 18; j < 25; j++) {
                 if (board.getField(i, j).isAvailable()) { // plain field
                     cornerPlayer2.addField(board.getField(i, j));
+                    board.getField(i, j).putChecker(builderChecker.buildChecker());
                 }
             }
         }
@@ -47,6 +50,7 @@ public class FourPlayerChineseCheckersBoardBuilder extends ChineseCheckersBoardB
             for (int j = 0; j < 7; j++) {
                 if (board.getField(i, j).isAvailable()) { // plain field
                     cornerPlayer4.addField(board.getField(i, j));
+                    board.getField(i, j).putChecker(builderChecker.buildChecker());
                 }
             }
         }

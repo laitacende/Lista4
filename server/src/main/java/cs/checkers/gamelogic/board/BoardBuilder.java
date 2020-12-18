@@ -1,9 +1,15 @@
 package cs.checkers.gamelogic.board;
 
+import cs.checkers.gamelogic.checker.BuilderChecker;
+
 /**
  * Builder for objects of class {@link Board Board}.
  */
 public abstract class BoardBuilder {
+    /**
+     * Builder for checkers.
+     */
+    protected BuilderChecker builderChecker;
     /**
      * Default number of board's rows.
      */
@@ -29,4 +35,5 @@ public abstract class BoardBuilder {
      * Method to add corners to board.
      */
     protected abstract void addCorners();
+
 }

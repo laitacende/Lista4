@@ -1,10 +1,14 @@
 package cs.checkers.gamelogic.board;
 
+import cs.checkers.gamelogic.checker.BuilderChecker;
+import cs.checkers.gamelogic.checker.ChineseBasicCheckerBuilder;
+
 /**
  * Builder for board to play chinese checkers.
  * @see cs.checkers.gamelogic.board.Board
  */
 public abstract class ChineseCheckersBoardBuilder extends BoardBuilder {
+    protected BuilderChecker builderChecker = new ChineseBasicCheckerBuilder();
     /**
      * Array with number of unavailable fields in particular row.
      */
