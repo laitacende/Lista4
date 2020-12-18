@@ -96,6 +96,11 @@ public class GameRunner {
       case "you_finished":
         JOptionPane.showMessageDialog(null, "You finished");
         break;
+      default:
+        if (parser.parse(command)) {
+          board.move(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2());
+        }
+        break;
     }
   }
 
