@@ -51,8 +51,10 @@ public class VisualField extends JButtonAdapter {
   private void onEnter(VisualChecker checker) {
     if (checker != null) {
       this.setText(checker.getIcon());
+      this.setForeground(checker.getColor());
     } else {
       this.setText("");
+      this.setForeground(getBackground());
     }
   }
 }
