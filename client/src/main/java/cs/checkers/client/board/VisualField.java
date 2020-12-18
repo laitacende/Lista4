@@ -55,5 +55,4 @@ public class VisualField extends JButtonAdapter {
       this.setText("");
     }
   }
-
 }
