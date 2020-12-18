@@ -126,4 +126,12 @@ public class Board {
     } catch (Exception e) {
     }
   }
+
+  public int getRows() {
+      return rows;
+  }
+
+  public int getCols() {
+      return cols;
+  }
 }

@@ -97,7 +97,9 @@ public class MoveValidator {
     private boolean validateForMoveJump(int x1, int y1, int x2, int y2, int tempx, int tempy, Board board) {
         Field[] fieldsAround = new Field[6]; // it the beginning tempx and tempy equal to x1, y1
         for (int i = 0; i < 6; i++) {
-            if (!(tempx + valx[i] == x1 && tempy + valy[i] == y1)) {
+            if (!(tempx + valx[i] == x1 && tempy + valy[i] == y1)
+                    && tempx + valx[i] >= 0 && tempx + valx[i] < board.getRows()
+                    && tempy + valy[i] >= 0 && tempy + valy[i] < board.getCols()) {
                 fieldsAround[i] = board.getField(tempx + valx[i], tempy + valy[i]);
             } else {
                 fieldsAround[i] = null;
@@ -139,9 +141,11 @@ public class MoveValidator {
                 Field temp;
                 // check if neighbours of this neighbour have checkers
                 for (int j = 0; j < 6; j++) {
-                    temp = board.getField(row + valx[j], col + valy[j]);
-                    if (temp != null && temp.getChecker() != null && !isVisited(temp, visited)) {
-                        return i;
+                    if (row + valx[j] >= 0 && row + valx[j] < board.getRows() && col + valy[j] >= 0 && col + valy[j] < board.getCols()) {
+                        temp = board.getField(row + valx[j], col + valy[j]);
+                        if (temp != null && temp.getChecker() != null && !isVisited(temp, visited)) {
+                            return i;
+                        }
                     }
                 }
             }
@@ -156,12 +160,16 @@ public class MoveValidator {
      * @return true if at least one neighbour is empty, if all have checkers method return false
      */
     private boolean ifNeighboursAreEmpty(Field field, Board board) {
+        int row = field.getX();
+        int col = field.getY();
         for (int i = 0; i < 6; i++) {
             // check if there exists neighbour without checkers
             Field temp;
-            temp = board.getField(field.getX() + valx[i], field.getY() + valy[i]);
-            if (temp != null && temp.getChecker() == null && !isVisited(temp, visited)) {
-                return true;
+            if (row + valx[i] >= 0 && row + valx[i] < board.getRows() && col + valy[i] >= 0 && col + valy[i] < board.getCols()) {
+                temp = board.getField(row + valx[i], col + valy[i]);
+                if (temp != null && temp.getChecker() == null && !isVisited(temp, visited)) {
+                    return true;
+                }
             }
         }
         return false;
