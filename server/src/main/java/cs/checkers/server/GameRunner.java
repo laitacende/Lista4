@@ -104,9 +104,15 @@ public class GameRunner {
         if (parser.parse(playerResponse)) {
           System.out.println("Player move: " + playerResponse);
           if (validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board)) {
-            board.move(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2());
-            currentHandler.sendCommand("move_success");
-            break;
+            if (currentHandler.getPlayer().hasChecker(board.getField(parser.getX1(), parser.getY1()).getChecker())) {
+              board.move(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2());
+              sendMoveToAllPlayers(playerResponse);
+              currentHandler.sendCommand("move_success");
+              break;
+            } else {
+              currentHandler.sendCommand("move_wrong");
+              continue;
+            }
           } else {
             currentHandler.sendCommand("move_wrong");
             continue;
