@@ -143,6 +143,12 @@ public class GameRunner {
     }
   }
 
+  private void sendMoveToAllPlayers(String move) {
+    for (PlayerHandler handler: playerHandlers) {
+      handler.sendCommand(move);
+    }
+  }
+
   private void removePlayer(PlayerHandler handler) {
     handler.close();
     playerHandlers.remove(handler);
