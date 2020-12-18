@@ -27,6 +27,7 @@ public class CommandParser {
     /**
      * Method which parses command.
      * @param command command to parse
+     * @return true if command was correctly formatted, false otherwise
      */
     public boolean parse(String command) {
       try {
