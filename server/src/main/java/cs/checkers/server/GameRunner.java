@@ -2,10 +2,13 @@ package cs.checkers.server;
 
 import java.net.ServerSocket;
 import java.util.ArrayList;
+import java.util.List;
 
 import cs.checkers.common.BoardTypes;
 import cs.checkers.gamelogic.board.Board;
 import cs.checkers.gamelogic.board.BoardFactory;
+import cs.checkers.gamelogic.checker.BuilderChecker;
+import cs.checkers.gamelogic.checker.ChineseBasicCheckerBuilder;
 import cs.checkers.gamelogic.movevalidator.MoveValidator;
 import cs.checkers.common.CommandParser;
 
@@ -68,6 +71,10 @@ public class GameRunner {
     // assigning players to corners
     for (int player = 0; player < playerHandlers.size(); player++) {
       System.out.println("Assigning players to corners");
+      BuilderChecker builder = new ChineseBasicCheckerBuilder();
+      for (int i = 0; i < board.getCorners().get(player).getFields().size(); i++) {
+        board.getCorners().get(player).getFields().get(i).putChecker(builder.buildChecker());
+      }
       playerHandlers.get(player).setPlayer(new Player(board.getCorners().get(player)));
     }
     System.out.println("Initialization done");
