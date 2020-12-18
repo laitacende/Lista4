@@ -71,10 +71,6 @@ public class GameRunner {
     // assigning players to corners
     for (int player = 0; player < playerHandlers.size(); player++) {
       System.out.println("Assigning players to corners");
-      BuilderChecker builder = new ChineseBasicCheckerBuilder();
-      //for (int i = 0; i < board.getCorners().get(player).getFields().size(); i++) {
-      //  board.getCorners().get(player).getFields().get(i).putChecker(builder.buildChecker());
-      //}
       playerHandlers.get(player).setPlayer(new Player(board.getCorners().get(player)));
     }
     System.out.println("Initialization done");
