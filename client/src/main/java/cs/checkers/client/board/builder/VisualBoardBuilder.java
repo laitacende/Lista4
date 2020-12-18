@@ -23,7 +23,7 @@ public abstract class VisualBoardBuilder {
     return boardToReturn;
   }
 
-  private final Color availableColor = Color.GREEN;
+  private final Color availableColor = Color.LIGHT_GRAY;
   private final Color unavailableColor = Color.GRAY;
   protected final Integer rows = 17;
   protected final Integer columns = 25;
@@ -124,7 +124,7 @@ public abstract class VisualBoardBuilder {
   }
 
   protected void fillTriangleWithCheckers(Integer rootPosX, Integer rootPosY, Integer triangleHeight,
-      Integer triangleDirection, VisualField fields[][], String icon) {
+                                          Integer triangleDirection, VisualField fields[][], String icon, Color color) {
     ArrayList<Coordinates> triangle = Coordinates.getTrianglePoints(rootPosX, rootPosY, triangleHeight,
         triangleDirection);
     int toSkip = 0;
@@ -134,7 +134,7 @@ public abstract class VisualBoardBuilder {
       int skipped = 0;
       for (int point = 0; point < amountOfPoints; point++) {
         Coordinates checkerField = triangle.get(index);
-        fields[checkerField.getRow()][checkerField.getColumn()].setChecker(new VisualChecker(icon));
+        fields[checkerField.getRow()][checkerField.getColumn()].setChecker(new VisualChecker(icon, color));
         index++;
         if (skipped < toSkip) {
           index++;
