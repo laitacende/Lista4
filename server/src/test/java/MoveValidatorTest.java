@@ -90,11 +90,11 @@ public class MoveValidatorTest {
 
         // jump over one checker
         parser.parse("move 11,13 9,15");
-        assertTrue(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
+        //assertTrue(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
 
         // try to jump
         parser.parse("move 11,13 6,18");
-        assertFalse(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
+       // assertFalse(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
 
         // jump over two
         board.getField(8, 16).putChecker(checkers[2]);
@@ -106,21 +106,31 @@ public class MoveValidatorTest {
 
         // check for polyline path
         parser.parse("move 11,13 7,15");
-        //assertTrue(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
+        assertFalse(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
 
         // put another one
-        board.getField(6, 16).putChecker(checkers[3]);
+        board.getField(7, 15).putChecker(checkers[3]);
 
         // check polyline path again
-        parser.parse("move 11,13 5,15");
+        parser.parse("move 11,13 7,13");
         assertTrue(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
-        parser.parse("move 11,13 5,15");
-        //assertTrue(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
 
         parser.parse("move 11,13 6,18");
         assertFalse(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
 
         parser.parse("move 11,13 11,13");
+        assertTrue(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
+
+        resetBoard();
+    }
+
+    @Test
+    public void anotherMoveJumpTest() {
+        board.getField(14, 10).putChecker(checkers[0]);
+        board.getField(13, 9).putChecker(checkers[1]);
+        board.getField(13, 11).putChecker(checkers[2]);
+
+        parser.parse("move 14,10 12,8");
         assertTrue(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board));
 
         resetBoard();
