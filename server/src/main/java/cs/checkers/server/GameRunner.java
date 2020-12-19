@@ -3,6 +3,7 @@ package cs.checkers.server;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import cs.checkers.common.BoardTypes;
 import cs.checkers.gamelogic.board.Board;
@@ -92,10 +93,29 @@ public class GameRunner {
     CommandParser parser = new CommandParser();
     System.out.println("Made validators and parsers");
     System.out.println("player handlers size: " + playerHandlers.size());
+
+    // get first player (randomly)
+    Random rand = new Random();
+    int idPlayer = rand.nextInt(playerHandlers.size());
+    Integer[] turns = new Integer[playerHandlers.size()];
+    int counter = 0;
+    for (int i = 0; i < playerHandlers.size(); i++) {
+      if (idPlayer + i < playerHandlers.size()) {
+        turns[i] = idPlayer + i;
+      } else {
+        turns[i] = counter;
+        counter++;
+      }
+    }
+
+    for (int i = 0; i < playerHandlers.size(); i++) {
+      System.out.println("Turn: " + (turns[i] + 1));
+    }
+
     while (playerHandlers.size() != 0) {
       System.out.println("Loop for player handling");
       Boolean playerRemoved = false;
-      PlayerHandler currentHandler = playerHandlers.get(index);
+      PlayerHandler currentHandler = playerHandlers.get(turns[index]);
       // signal player that it's his turn
       currentHandler.sendCommand("your_turn");
       // player makes move
