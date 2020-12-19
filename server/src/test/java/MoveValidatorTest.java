@@ -175,6 +175,7 @@ public class MoveValidatorTest {
 
     @Test
     public void blockedTest() {
+      resetBoard();
         board.getField(16, 12).putChecker(checkers[0]);
         board.getField(15, 11).putChecker(checkers[1]);
         board.getField(15, 13).putChecker(checkers[2]);
