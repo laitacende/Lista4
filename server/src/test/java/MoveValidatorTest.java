@@ -13,7 +13,6 @@ import org.junit.Test;
 import static cs.checkers.common.BoardTypes.TwoPlayerChineseCheckers;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
 public class MoveValidatorTest {
     private Board board;
     private MoveValidator validator = new MoveValidator();
@@ -186,6 +185,7 @@ public class MoveValidatorTest {
 
     @Test
     public void blockedTest() {
+      resetBoard();
         board.getField(16, 12).putChecker(checkers[0]);
         board.getField(15, 11).putChecker(checkers[1]);
         board.getField(15, 13).putChecker(checkers[2]);
