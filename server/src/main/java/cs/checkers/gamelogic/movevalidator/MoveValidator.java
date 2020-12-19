@@ -59,7 +59,8 @@ public class MoveValidator {
                     if(validateForMoveOneSquare(x1, y1, x2, y2))
                         return true;
                 } else if (move.getClass().equals(MoveJump.class)) {
-                     if (validateForMoveJump(x1, y1, x2, y2, x1, y1, board)) {
+                  MoveJump moveJump = (MoveJump) move;
+                     if (moveJump.validateMove(x1, y1, x2, y2, board)) {
                          return true;
                      }
                 }
@@ -95,6 +96,8 @@ public class MoveValidator {
      * @return true if move is valid, otherwise false
      */
     private boolean validateForMoveJump(int x1, int y1, int x2, int y2, int tempx, int tempy, Board board) {
+      Integer offsetX[] = { -1, -1, 1, 1 };
+      Integer offsetY[] = { -1, 1, 1, -1 };
         Field[] fieldsAround = new Field[6]; // it the beginning tempx and tempy equal to x1, y1
         for (int i = 0; i < 6; i++) {
             if (!(tempx + valx[i] == x1 && tempy + valy[i] == y1)
