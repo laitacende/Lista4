@@ -3,6 +3,8 @@ package cs.checkers;
 import cs.checkers.common.BoardTypes;
 import cs.checkers.server.GameRunner;
 
+import java.net.ServerSocket;
+
 /**
  * App
  */
@@ -18,11 +20,18 @@ public class App {
       return;
     }
 
-    GameRunner runner = new GameRunner(type);
-    if (!runner.initialize(4999)) {
-      System.out.println("Initializing failed");
-    } else {
-      runner.run();
+    try {
+      ServerSocket serverSocket = new ServerSocket(4999);
+
+      GameRunner runner = new GameRunner(type, serverSocket);
+      if (!runner.initialize()) {
+        System.out.println("Initializing failed");
+      } else {
+        runner.run();
+      }
+    }
+    catch (Exception e) {
+      System.out.println("Failed to create socket");
     }
   }
 }

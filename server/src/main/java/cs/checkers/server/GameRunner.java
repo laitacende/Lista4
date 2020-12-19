@@ -28,17 +28,17 @@ public class GameRunner {
    * 
    * @param type type of Board the game is going to be played on
    */
-  public GameRunner(BoardTypes type) {
+  public GameRunner(BoardTypes type, ServerSocket serverSocket) {
     this.type = type;
+    this.serverSocket = serverSocket;
   }
 
   /**
    * method used to initialize Chinese Checkers server at a specific port, create
    * the game board and get enough players to play the game
-   * 
-   * @param port port on which ServerSocket will be initialized
+   *
    */
-  public boolean initialize(Integer port) {
+  public boolean initialize() {
     // getting board
     System.out.println("Started to initialize");
     BoardFactory factory = new BoardFactory();
@@ -46,8 +46,8 @@ public class GameRunner {
     System.out.println("Board created");
     // getting players
     try {
-      serverSocket = new ServerSocket(port);
-      System.out.println("Created ServerSocket on port " + port.toString());
+     // serverSocket = new ServerSocket(port);
+      System.out.println("Created ServerSocket on port " + serverSocket.getLocalPort());
       playerHandlers = new ArrayList<PlayerHandler>(type.getNumOfPlayers(type));
       System.out.println(type.toString());
       System.out.println(type.getNumOfPlayers(type));
@@ -121,6 +121,7 @@ public class GameRunner {
       // player makes move
       while (true) {
         String playerResponse = currentHandler.getResponse();
+        System.out.println("Response " + playerResponse);
         if (parser.parse(playerResponse)) {
           System.out.println("Player move: " + playerResponse);
           if (validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board)) {
