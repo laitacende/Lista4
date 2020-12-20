@@ -7,7 +7,8 @@ import cs.checkers.client.adapter.JButtonAdapter;
 import cs.checkers.client.board.Coordinates;
 
 /**
- * Controls
+ * handles clicking done by player, and has methods that other classes can use
+ * to find out what the player wants to do next
  */
 public class Controls implements MouseListener {
   private String currentMove = "";
@@ -60,6 +61,12 @@ public class Controls implements MouseListener {
     return null;
   }
 
+  /**
+   * Warning: blocking function, will only return once the players has inputted
+   * his next move
+   *
+   * @return a string representation of the next move that the player wants to do
+   */
   public String getNextMove() {
     while (currentMove.equals("")) {
       try {
