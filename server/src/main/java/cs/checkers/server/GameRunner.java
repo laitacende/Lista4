@@ -24,8 +24,8 @@ public class GameRunner {
   private Board board;
 
   /**
-   * Game Runner construcor
-   * 
+   * GameRunner constructor
+   *
    * @param type type of Board the game is going to be played on
    */
   public GameRunner(BoardTypes type, ServerSocket serverSocket) {
