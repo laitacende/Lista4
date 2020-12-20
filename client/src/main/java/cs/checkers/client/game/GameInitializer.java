@@ -16,6 +16,10 @@ public class GameInitializer {
   private VisualBoard board;
   private Controls controls;
 
+  /**
+   * initializes {@link cs.checkers.client.frontend.GameWindow} and makes it
+   * visible. This is used to show the player the current board
+   */
   public void initializeGraphic() {
     controls = new Controls(board.getFields());
     for (int row = 0; row < board.getFields().length; row++) {
@@ -27,10 +31,19 @@ public class GameInitializer {
     builder.getGameWindow(board.getFields());
   }
 
+  /**
+   * @return current {@link VisualBoard}'s interface
+   */
   AbstractVisualBoard getBoard() {
     return board;
   }
 
+  /**
+   * GameInitializer constructor
+   * 
+   * @param type the type of {@link VisualBoard} that the game is supposed to be
+   *             based on
+   */
   public GameInitializer(BoardTypes type) throws InvalidParameterException {
     board = VisualBoardFactory.getBoard(type);
     if (board == null) {
@@ -38,8 +51,10 @@ public class GameInitializer {
     }
   }
 
+  /**
+   * @return current board's controls
+   */
   public Controls getControls() {
     return controls;
   }
-
 }
