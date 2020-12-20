@@ -28,6 +28,17 @@ public class Coordinates {
     return getRow().toString() + "," + getColumn().toString();
   }
 
+  /**
+   * function which returns a list of all points in a given triangle One specifies
+   * the triangle by passing it's root point, it's height and whether it's
+   * supposed to go down or up
+   * 
+   * @param xBeg              row of the triangle root
+   * @param yBeg              column of the triangle root
+   * @param height            triangle height
+   * @param verticalDirection 1 if it's going down or -1 if it's going up
+   * @return a list of all points in a triangle
+   */
   public static ArrayList<Coordinates> getTrianglePoints(int xBeg, int yBeg, int height, int verticalDirection) {
     ArrayList<Coordinates> result = new ArrayList<Coordinates>();
     int xPoint = xBeg;
