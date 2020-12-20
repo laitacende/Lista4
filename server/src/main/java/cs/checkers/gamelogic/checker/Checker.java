@@ -16,11 +16,15 @@ public abstract class Checker {
      * Getter for moveSet.
      * @return checker's move set
      */
-    public abstract MoveSet getMoveSet();
+    public MoveSet getMoveSet() {
+        return this.moveSet;
+    }
 
     /**
      * Setter for move set.
      * @param moveSet move set to be set
      */
-    public abstract void setMoveSet(MoveSet moveSet);
+    public void setMoveSet(MoveSet moveSet) {
+        this.moveSet = moveSet;
+    }
 }
