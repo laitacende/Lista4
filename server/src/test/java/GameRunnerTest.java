@@ -7,7 +7,6 @@ import org.junit.Test;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -23,8 +22,6 @@ public class GameRunnerTest {
     private ByteArrayInputStream input2;
     private ByteArrayOutputStream output1;
     private ByteArrayOutputStream output2;
-    private Scanner scanner1;
-    private Scanner scanner2;
 
     @Before
     public void setUp() {
@@ -60,7 +57,5 @@ public class GameRunnerTest {
 
         }
         gameRunner.initialize();
-
-       // gameRunner.run();
     }
 }
