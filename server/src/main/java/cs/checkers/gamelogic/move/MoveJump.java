@@ -82,5 +82,4 @@ public class MoveJump extends Move {
     }
     return false;
   }
-
 }

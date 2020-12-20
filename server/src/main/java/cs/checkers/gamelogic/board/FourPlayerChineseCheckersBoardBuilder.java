@@ -1,6 +1,5 @@
 package cs.checkers.gamelogic.board;
 
-import cs.checkers.gamelogic.field.PlainField;
 
 /**
  * Concrete builder of {@link ChineseCheckersBoardBuilder ChineseCheckersBoardBuilder}.
