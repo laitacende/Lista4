@@ -4,6 +4,9 @@ import javax.swing.JOptionPane;
 
 import cs.checkers.client.game.GameRunner;
 
+/**
+   main() class, creates a new GameRunner and runs it
+ */
 public class App {
     public static void main(String[] args) {
       GameRunner runner = new GameRunner();
