@@ -76,4 +76,12 @@ public class Player {
         }
         return false;
     }
+
+    /**
+     * Getter for opposite corner of player.
+     * @return opposite corner
+     */
+    public Corner getOppositeCorner() {
+        return corner.getOppositeCorner();
+    }
 }
