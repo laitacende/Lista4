@@ -51,4 +51,18 @@ public class Corner {
     public List<Field> getFields() {
         return fields;
     }
+
+    /**
+     * Method wchich determines if field belongs to this corner.
+     * @param fieldToCheck field to check
+     * @return true if field belongs to corner, false otherwise
+     */
+    public boolean ifFieldIsInCorner(Field fieldToCheck) {
+        for (Field field: fields) {
+            if (field.equals(fieldToCheck)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -61,8 +61,7 @@ public class GameSimulationTest {
         Field next = board.getField(parser.getX2(), parser.getY2());
         Checker checker = field.getChecker();
         // check if player wants to move their checker
-        if (player1 != null && player1.hasChecker(checker)
-                && validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board)) {
+        if (player1 != null && validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board, player1)) {
             next.putChecker(checker);
             next.onEnter(checker);
         }
@@ -73,8 +72,7 @@ public class GameSimulationTest {
         field = board.getField(parser.getX1(), parser.getY1());
         next = board.getField(parser.getX2(), parser.getY2());
         checker = field.getChecker();
-        if (player2 != null && player2.hasChecker(checker)
-                && validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board)) {
+        if (player2 != null && validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board, player2)) {
             next.putChecker(checker);
             next.onEnter(checker);
         }
@@ -86,8 +84,7 @@ public class GameSimulationTest {
         next = board.getField(parser.getX2(), parser.getY2());
         checker = field.getChecker();
         // check if player wants to move their checker
-        if (player1 != null && player1.hasChecker(checker)
-                && validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board)) {
+        if (player1 != null && validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board, player1)) {
             next.putChecker(checker);
             next.onEnter(checker);
         }

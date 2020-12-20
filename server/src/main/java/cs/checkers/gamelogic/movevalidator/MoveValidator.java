@@ -2,6 +2,7 @@ package cs.checkers.gamelogic.movevalidator;
 
 import cs.checkers.common.CommandParser;
 import cs.checkers.gamelogic.board.Board;
+import cs.checkers.gamelogic.board.Corner;
 import cs.checkers.gamelogic.checker.Checker;
 import cs.checkers.gamelogic.checker.ChineseBasicChecker;
 import cs.checkers.gamelogic.field.Field;
@@ -9,6 +10,7 @@ import cs.checkers.gamelogic.field.UnavailableField;
 import cs.checkers.gamelogic.move.Move;
 import cs.checkers.gamelogic.move.MoveJump;
 import cs.checkers.gamelogic.move.MoveOneSquare;
+import cs.checkers.server.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,11 +44,19 @@ public class MoveValidator {
    * @param board up-to-date board
    * @return true if move is valid, false otherwise
    */
-  public boolean validateMove(int x1, int y1, int x2, int y2, Board board) { // command in format 'move x_1,y_1 x_2,y_2'
+  public boolean validateMove(int x1, int y1, int x2, int y2, Board board, Player player) { // command in format 'move x_1,y_1 x_2,y_2'
     Field currentField = board.getField(x1, y1);
     Field nextField = board.getField(x2, y2);
     Checker checker = currentField.getChecker();
 
+    if (player != null) {
+      if (player.getOppositeCorner().ifFieldIsInCorner(currentField) && !player.getOppositeCorner().ifFieldIsInCorner(nextField)) {
+        return false;
+      }
+      if (!player.hasChecker(currentField.getChecker())) {
+        return false;
+      }
+    }
     if (nextField.equals(currentField)) {
       return true;
     } else if (!nextField.isAvailable() || !(nextField.getChecker() == null)) {
