@@ -33,6 +33,9 @@ public class MoveValidator {
     Field nextField = board.getField(x2, y2);
     Checker checker = currentField.getChecker();
 
+    if (currentField.getChecker() == null) {
+      return false;
+    }
     if (player != null) {
       if (player.getOppositeCorner().ifFieldIsInCorner(currentField) && !player.getOppositeCorner().ifFieldIsInCorner(nextField)) {
         return false;
@@ -41,9 +44,7 @@ public class MoveValidator {
         return false;
       }
     }
-    if (nextField.equals(currentField)) {
-      return true;
-    } else if (!nextField.isAvailable() || !(nextField.getChecker() == null)) {
+    if (nextField.equals(currentField) || !nextField.isAvailable() || !(nextField.getChecker() == null)) {
       return false;
     } else {
       List<Move> moves = checker.getMoveSet().getMoves();

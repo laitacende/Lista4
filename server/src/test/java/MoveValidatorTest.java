@@ -119,7 +119,7 @@ public class MoveValidatorTest {
         assertFalse(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board, null));
 
         parser.parse("move 11,13 11,13");
-        assertTrue(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board, null));
+        assertFalse(validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board, null));
 
         resetBoard();
     }
