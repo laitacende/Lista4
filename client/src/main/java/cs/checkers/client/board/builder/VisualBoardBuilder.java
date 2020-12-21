@@ -1,13 +1,18 @@
 package cs.checkers.client.board.builder;
 
-import java.awt.Color;
+import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.SwingConstants;
 
 import cs.checkers.client.board.Coordinates;
 import cs.checkers.client.board.VisualBoard;
 import cs.checkers.client.board.VisualChecker;
 import cs.checkers.client.board.VisualField;
 import cs.checkers.common.BoardTypes;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 /**
  * {@link VisualBoard} builder, fills the {@link VisualBoard} with
@@ -57,6 +62,8 @@ public abstract class VisualBoardBuilder {
       // left side unavailable fields (out of bounds)
       while (column < numberOfAvailableFieldsOnSide) {
         fields[row][column] = new VisualField(unavailableColor);
+        fields[row][column].setEnabled(false);
+        fields[row][column].setBorder(null);
         column++;
       }
 
@@ -69,6 +76,8 @@ public abstract class VisualBoardBuilder {
       // right side out of bounds
       while (column < fields[row].length) {
         fields[row][column] = new VisualField(unavailableColor);
+        fields[row][column].setEnabled(false);
+        fields[row][column].setBorder(null);
         column++;
       }
       incrementer += 2;
@@ -85,6 +94,8 @@ public abstract class VisualBoardBuilder {
       while (column < numberOfAvailableFieldsOnSide) {
         if (fields[row][column] == null) {
           fields[row][column] = new VisualField(unavailableColor);
+          fields[row][column].setEnabled(false);
+          fields[row][column].setBorder(null);
         }
         column++;
       }
@@ -99,6 +110,8 @@ public abstract class VisualBoardBuilder {
       while (column < fields[row].length) {
         if (fields[row][column] == null) {
           fields[row][column] = new VisualField(unavailableColor);
+          fields[row][column].setEnabled(false);
+          fields[row][column].setBorder(null);
         }
         column++;
       }
@@ -108,17 +121,49 @@ public abstract class VisualBoardBuilder {
 
 
   private VisualField makeInBoundsField(int row, int column) {
+    Image buttonIcon = null;
+    try {
+      buttonIcon = ImageIO.read(getClass().getClassLoader().getResourceAsStream("field.png"));
+    }
+    catch (IOException e) {
+      e.printStackTrace();
+    }
+    buttonIcon = buttonIcon.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+    Icon icon = new ImageIcon(buttonIcon);
+    VisualField temp;
     if (row % 2 == 0) {
       if (column % 2 == 0) {
-        return new VisualField(availableColor);
+        // available
+        temp = new VisualField(unavailableColor);
+        temp.setIcon(icon);
+        temp.setBorderPainted(false);
+        temp.setPreferredSize(new Dimension(35, 35));
+        temp.setMaximumSize(new Dimension(35,35));
+        temp.setVerticalTextPosition(SwingConstants.CENTER);
+        temp.setHorizontalTextPosition(SwingConstants.CENTER);
+        return temp;
       } else {
-        return new VisualField(unavailableColor);
+        temp = new VisualField(unavailableColor);
+        temp.setEnabled(false);
+        temp.setBorder(null);
+        return temp;
       }
     } else {
       if (column % 2 == 0) {
-        return new VisualField(unavailableColor);
+        temp = new VisualField(unavailableColor);
+        temp.setEnabled(false);
+        temp.setBorder(null);
+        return temp;
       } else {
-        return new VisualField(availableColor);
+        // available
+        temp = new VisualField(unavailableColor);
+        temp.setBorderPainted(false);
+        temp.setIcon(icon);
+        temp.setPreferredSize(new Dimension(35, 35));
+        temp.setMaximumSize(new Dimension(35,35));
+        temp.setVerticalTextPosition(SwingConstants.CENTER);
+        temp.setHorizontalTextPosition(SwingConstants.CENTER);
+        return temp;
       }
     }
   }

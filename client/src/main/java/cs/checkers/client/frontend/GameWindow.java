@@ -3,7 +3,8 @@ package cs.checkers.client.frontend;
 import javax.swing.JFrame;
 
 import cs.checkers.client.frontend.adapter.JPanelAdapter;
-import java.awt.BorderLayout;
+
+import java.awt.*;
 
 /**
  * houses graphic for {@link cs.checkers.client.board.VisualBoard}
@@ -12,6 +13,7 @@ public class GameWindow extends JFrame {
 
   public GameWindow(JPanelAdapter board) {
     this.setName("Chinese Checkers");
+    this.setPreferredSize(new Dimension(1200, 700));
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLayout(new BorderLayout());
     this.add(board, BorderLayout.CENTER);
