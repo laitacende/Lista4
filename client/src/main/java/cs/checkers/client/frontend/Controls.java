@@ -6,6 +6,8 @@ import java.awt.event.MouseListener;
 import cs.checkers.client.adapter.JButtonAdapter;
 import cs.checkers.client.board.Coordinates;
 
+import javax.swing.*;
+
 /**
  * handles clicking done by player, and has methods that other classes can use
  * to find out what the player wants to do next
@@ -18,19 +20,21 @@ public class Controls implements MouseListener {
 
   @Override
   public void mouseClicked(MouseEvent arg0) {
-    if (arg0.getSource() instanceof JButtonAdapter) {
-      if (numberOfClicks == 0) {
-        previouslyClicked = findCoordinates((JButtonAdapter) arg0.getSource());
-        numberOfClicks++;
-        System.out.println("previous field set");
-      } else {
-        Coordinates target = findCoordinates((JButtonAdapter) arg0.getSource());
-        if (target != null && previouslyClicked != null) {
-          currentMove = "move " + previouslyClicked.toString() + " " + target.toString();
+    if (arg0.getSource() instanceof JButton && ((JButton)arg0.getSource()).getActionCommand().equals("skip_turn")) {
+      currentMove = "skip_turn";
+    } else if (arg0.getSource() instanceof JButtonAdapter) {
+        if (numberOfClicks == 0) {
+          previouslyClicked = findCoordinates((JButtonAdapter) arg0.getSource());
+          numberOfClicks++;
+          System.out.println("previous field set");
+        } else {
+          Coordinates target = findCoordinates((JButtonAdapter) arg0.getSource());
+          if (target != null && previouslyClicked != null) {
+            currentMove = "move " + previouslyClicked.toString() + " " + target.toString();
+          }
+          numberOfClicks = 0;
+          System.out.println("current move set");
         }
-        numberOfClicks = 0;
-        System.out.println("current move set");
-      }
     }
   }
 

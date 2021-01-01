@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import cs.checkers.client.board.AbstractVisualBoard;
 import cs.checkers.client.board.Coordinates;
 import cs.checkers.client.frontend.Controls;
+import cs.checkers.client.frontend.SidePanel;
 import cs.checkers.client.networkIO.ServerHandler;
 import cs.checkers.common.BoardTypes;
 import cs.checkers.common.CommandParser;
@@ -23,6 +24,7 @@ public class GameRunner {
   private boolean initialized = false;
   private String currentMove;
   private Controls controls;
+  private SidePanel panel;
 
   /**
    * use this function to connect {@link GameRunner} to a server and launch the
@@ -41,6 +43,7 @@ public class GameRunner {
       GameInitializer initializer = new GameInitializer(BoardTypes.valueOf(type));
       board = initializer.getBoard();
       initializer.initializeGraphic();
+      panel = initializer.getPanel();
       this.controls = initializer.getControls();
       handler.sendCommand("OK");
       initialized = true;
@@ -81,12 +84,15 @@ public class GameRunner {
     CommandParser parser = new CommandParser();
     switch (command) {
       case "your_turn":
+        // check if skip turn was pressed
+        panel.setText("It's your turn");
         currentMove = createMove();
         handler.sendCommand(currentMove);
         break;
       case "move_success":
         parser.parse(currentMove);
         board.move(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2());
+        panel.setText(" ");
         break;
       case "move_wrong":
         JOptionPane.showMessageDialog(null, "Wrong move, try again");
@@ -95,6 +101,9 @@ public class GameRunner {
         break;
       case "you_finished":
         JOptionPane.showMessageDialog(null, "You finished");
+        break;
+      case "skip_success":
+        panel.setText(" ");
         break;
       default:
         if (parser.parse(command)) {

@@ -2,14 +2,11 @@ package cs.checkers.server;
 
 import java.net.ServerSocket;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import cs.checkers.common.BoardTypes;
 import cs.checkers.gamelogic.board.Board;
 import cs.checkers.gamelogic.board.BoardFactory;
-import cs.checkers.gamelogic.checker.BuilderChecker;
-import cs.checkers.gamelogic.checker.ChineseBasicCheckerBuilder;
 import cs.checkers.gamelogic.movevalidator.MoveValidator;
 import cs.checkers.common.CommandParser;
 
@@ -135,6 +132,7 @@ public class GameRunner {
           }
         } else {
           if (playerResponse.equals("skip_turn")) {
+            currentHandler.sendCommand("skip_success");
             break;
           } else {
             removePlayer(currentHandler);

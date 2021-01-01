@@ -6,6 +6,7 @@ import cs.checkers.client.board.AbstractVisualBoard;
 import cs.checkers.client.board.VisualBoard;
 import cs.checkers.client.board.factory.VisualBoardFactory;
 import cs.checkers.client.frontend.Controls;
+import cs.checkers.client.frontend.SidePanel;
 import cs.checkers.client.frontend.builder.GameWindowBuilder;
 import cs.checkers.common.BoardTypes;
 
@@ -15,6 +16,7 @@ import cs.checkers.common.BoardTypes;
 public class GameInitializer {
   private VisualBoard board;
   private Controls controls;
+  private SidePanel panel;
 
   /**
    * initializes {@link cs.checkers.client.frontend.GameWindow} and makes it
@@ -27,8 +29,9 @@ public class GameInitializer {
         board.getFields()[row][column].addMouseListener(controls);
       }
     }
+    panel = new SidePanel(controls);
     GameWindowBuilder builder = new GameWindowBuilder();
-    builder.getGameWindow(board.getFields());
+    builder.getGameWindow(board.getFields(), panel);
   }
 
   /**
@@ -56,5 +59,9 @@ public class GameInitializer {
    */
   public Controls getControls() {
     return controls;
+  }
+
+  public SidePanel getPanel() {
+    return panel;
   }
 }

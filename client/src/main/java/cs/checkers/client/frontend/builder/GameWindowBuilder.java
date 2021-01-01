@@ -2,6 +2,7 @@ package cs.checkers.client.frontend.builder;
 
 import cs.checkers.client.adapter.JButtonAdapter;
 import cs.checkers.client.frontend.GameWindow;
+import cs.checkers.client.frontend.SidePanel;
 import cs.checkers.client.frontend.adapter.JPanelAdapter;
 import java.awt.GridLayout;
 
@@ -11,7 +12,7 @@ import java.awt.GridLayout;
    requires the field of a board to extend {@link JButtonAdapter}
  */
 public class GameWindowBuilder {
-  public void getGameWindow(JButtonAdapter[][] buttons) {
+  public void getGameWindow(JButtonAdapter[][] buttons, SidePanel panel) {
     JPanelAdapter board = new JPanelAdapter();
     board.setLayout(new GridLayout(buttons.length, buttons[0].length));
     for (int row = 0; row < buttons.length; row++) {
@@ -19,7 +20,7 @@ public class GameWindowBuilder {
         board.add(buttons[row][column]);
       }
     }
-    GameWindow window = new GameWindow(board);
+    GameWindow window = new GameWindow(board, panel);
     window.pack();
     window.setVisible(true);
   }
