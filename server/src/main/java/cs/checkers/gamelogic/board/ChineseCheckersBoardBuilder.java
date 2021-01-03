@@ -18,7 +18,7 @@ public abstract class ChineseCheckersBoardBuilder extends BoardBuilder {
     private final int[] unavailable = {12, 11, 10, 9, 0, 1, 2, 3, 4, 3, 2, 1, 0, 9, 10, 11, 12};
 
     /**
-     * Method which builts board - sets size and types of fields.
+     * Method which builds board - sets size and types of fields.
      * @return built board
      */
     @Override
