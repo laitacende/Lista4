@@ -27,15 +27,4 @@ public class VisualBoard implements AbstractVisualBoard {
 		this.fields = fields;
 	}
 
-  public String toString() {
-    String result = "";
-    for (int row = 0; row < fields.length; row++) {
-      for (int column = 0; column < fields[row].length; column ++) {
-        result += " | " + new Integer(fields[row][column].getBackground().getGreen()).toString();
-      }
-      result += " |\n";
-    }
-    return result;
-  }
-
 }
