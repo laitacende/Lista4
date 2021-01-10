@@ -1,8 +1,5 @@
 package cs.checkers.client.board.builder;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-
 import cs.checkers.client.board.Coordinates;
 import cs.checkers.client.board.VisualBoard;
 import cs.checkers.client.board.VisualField;
