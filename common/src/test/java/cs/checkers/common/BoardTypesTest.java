@@ -24,5 +24,11 @@ public class BoardTypesTest {
   public void testBoth() {
     BoardTypes type = BoardTypes.valueOf("TwoPlayerChineseCheckers");
     assertTrue(type.getNumOfPlayers(type) == 2);
+    type = BoardTypes.valueOf("ThreePlayerChineseCheckers");
+    assertTrue(type.getNumOfPlayers(type) == 3);
+    type = BoardTypes.valueOf("FourPlayerChineseCheckers");
+    assertTrue(type.getNumOfPlayers(type) == 4);
+    type = BoardTypes.valueOf("SixPlayerChineseCheckers");
+    assertTrue(type.getNumOfPlayers(type) == 6);
   }
 }
