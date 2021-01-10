@@ -1,15 +1,10 @@
 package cs.checkers.client.board.builder;
 
-import org.junit.jupiter.api.Test;
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
-
 import javax.swing.JFrame;
-
 import cs.checkers.client.board.VisualBoard;
 import cs.checkers.client.frontend.adapter.JPanelAdapter;
-
-import org.junit.jupiter.api.Disabled;
 
 /**
  * TwoPlayerVisualBoardBuilderTest
