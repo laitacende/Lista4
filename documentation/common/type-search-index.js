@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"cs.checkers.common","l":"BoardTypes"},{"p":"cs.checkers.common","l":"CommandParser"}]

@@ -1,0 +1,8 @@
+cs.checkers
+cs.checkers.gamelogic.board
+cs.checkers.gamelogic.checker
+cs.checkers.gamelogic.field
+cs.checkers.gamelogic.move
+cs.checkers.gamelogic.moveset
+cs.checkers.gamelogic.movevalidator
+cs.checkers.server

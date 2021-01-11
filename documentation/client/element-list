@@ -1,0 +1,10 @@
+cs.checkers.client
+cs.checkers.client.adapter
+cs.checkers.client.board
+cs.checkers.client.board.builder
+cs.checkers.client.board.factory
+cs.checkers.client.frontend
+cs.checkers.client.frontend.adapter
+cs.checkers.client.frontend.builder
+cs.checkers.client.game
+cs.checkers.client.networkIO
