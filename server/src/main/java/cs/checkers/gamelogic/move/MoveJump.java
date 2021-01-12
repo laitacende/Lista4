@@ -46,7 +46,7 @@ public class MoveJump extends Move {
         // try to find if neighbor has checker;
         if (board.getField(offX1, offY1).getChecker() != null) {
           // try to find if field behind neighbour doesn't have a checker
-            if (board.getField(twiceOffX1, twiceOffY1).getChecker() == null && board.getField(twiceOffX1, twiceOffY1).isAvailable()) {
+          if (board.getField(twiceOffX1, twiceOffY1).getChecker() == null && board.getField(twiceOffX1, twiceOffY1).isAvailable()) {
             // check that we haven't visited this destination yet
             if (listContains(visitedFields, board.getField(twiceOffX1, twiceOffY1))) {
               continue;
