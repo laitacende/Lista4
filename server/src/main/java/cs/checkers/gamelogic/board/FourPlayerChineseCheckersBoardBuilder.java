@@ -23,7 +23,7 @@ public class FourPlayerChineseCheckersBoardBuilder extends ChineseCheckersBoardB
         }
 
         for (int i = 9; i < 13; i++) {
-            for (int j = 0; j < 7 - offset[12 - i]; j++) {
+            for (int j = 0; j < 7 - offset[i - 9]; j++) {
                 if (board.getField(i, j).isAvailable()) { // plain field
                     cornerPlayer3.addField(board.getField(i, j));
                     board.getField(i, j).putChecker(builderChecker.buildChecker());
