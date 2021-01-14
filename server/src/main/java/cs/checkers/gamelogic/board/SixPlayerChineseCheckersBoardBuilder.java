@@ -8,6 +8,7 @@ public class SixPlayerChineseCheckersBoardBuilder extends ChineseCheckersBoardBu
      * Method which adds fields to corners and sets opposite corners.
      */
     protected void addCorners() {
+        int offset[] = {3, 2, 1, 0};
         Corner cornerPlayer1 = new Corner();
         Corner cornerPlayer4 = new Corner();
 
@@ -36,7 +37,7 @@ public class SixPlayerChineseCheckersBoardBuilder extends ChineseCheckersBoardBu
         Corner cornerPlayer5 = new Corner();
 
         for (int i = 4; i < 8; i++) {
-            for (int j = 18; j < 25; j++) {
+            for (int j = 18 + offset[7 - i]; j < 25; j++) {
                 if (board.getField(i, j).isAvailable()) { // plain field
                     cornerPlayer2.addField(board.getField(i, j));
                     board.getField(i, j).putChecker(builderChecker.buildChecker());
@@ -45,7 +46,7 @@ public class SixPlayerChineseCheckersBoardBuilder extends ChineseCheckersBoardBu
         }
 
         for (int i = 9; i < 13; i++) {
-            for (int j = 0; j < 7; j++) {
+            for (int j = 0; j < 7 - offset[i - 9]; j++) {
                 if (board.getField(i, j).isAvailable()) { // plain field
                     cornerPlayer5.addField(board.getField(i, j));
                     board.getField(i, j).putChecker(builderChecker.buildChecker());
@@ -59,7 +60,7 @@ public class SixPlayerChineseCheckersBoardBuilder extends ChineseCheckersBoardBu
         Corner cornerPlayer6 = new Corner();
 
         for (int i = 9; i < 13; i++) {
-            for (int j = 18; j < 25; j++) {
+            for (int j = 18 + offset[i - 9]; j < 25; j++) {
                 if (board.getField(i, j).isAvailable()) { // plain field
                     cornerPlayer3.addField(board.getField(i, j));
                     board.getField(i, j).putChecker(builderChecker.buildChecker());
@@ -68,7 +69,7 @@ public class SixPlayerChineseCheckersBoardBuilder extends ChineseCheckersBoardBu
         }
 
         for (int i = 4; i < 8; i++) {
-            for (int j = 0; j < 7; j++) {
+            for (int j = 0; j < 7 - offset[7 - i]; j++) {
                 if (board.getField(i, j).isAvailable()) { // plain field
                     cornerPlayer6.addField(board.getField(i, j));
                     board.getField(i, j).putChecker(builderChecker.buildChecker());
