@@ -123,7 +123,7 @@ public class GameRunner {
           System.out.println("Player move: " + playerResponse);
           if (validator.validateMove(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2(), board, playerHandlers.get(turns[index]).getPlayer())) {
               board.move(parser.getX1(), parser.getY1(), parser.getX2(), parser.getY2());
-              sendMoveToAllPlayers(playerResponse);
+              sendMoveToAllPlayers(playerResponse, currentHandler);
               currentHandler.sendCommand("move_success");
               break;
           } else {
@@ -159,9 +159,11 @@ public class GameRunner {
     }
   }
 
-  private void sendMoveToAllPlayers(String move) {
+    private void sendMoveToAllPlayers(String move, PlayerHandler sourceHandler) {
     for (PlayerHandler handler: playerHandlers) {
-      handler.sendCommand(move);
+      if (handler != sourceHandler) {
+        handler.sendCommand(move);
+      }
     }
   }
 
